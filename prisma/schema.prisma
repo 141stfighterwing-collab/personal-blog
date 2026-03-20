@@ -131,3 +131,31 @@ model PageBlock {
   @@index([pageId])
   @@index([sortOrder])
 }
+
+// Site-wide settings for theme and configuration
+model SiteSettings {
+  id            String   @id @default(cuid())
+  siteTitle     String   @default("My Personal Blog")
+  siteTagline   String   @default("Thoughts, projects, and discoveries")
+  activeTheme   String   @default("twenty-ten") // twenty-ten, twenty-eleven, twenty-twelve
+  headerImage   String?  // Custom header image URL
+  darkMode      Boolean  @default(false)
+  customCss     String?  // Additional custom CSS
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// Team members for Twenty Twelve theme
+model TeamMember {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  image     String?
+  bio       String?
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sortOrder])
+}
