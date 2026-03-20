@@ -182,10 +182,10 @@ The script provides:
 [2] Manual Setup     - Guided configuration
 [3] Docker Manager   - Manage database container
 [4] System Status    - View current setup status
-[5] Show Credentials - Display default login info
-[6] Export Credentials - Save credentials to file
-[7] Test Application - Run functionality tests
-[8] View Logs        - Open setup log file
+[5] Generate Credentials - Create credentials.txt file
+[6] Test Application - Run functionality tests
+[7] View Logs        - Open setup log file
+[Q] Quit
 ```
 
 ---
@@ -293,15 +293,21 @@ Then run `bun run db:push`. **Not recommended for production.**
 
 ## 🔐 Authentication & Roles
 
-### Default Users (Hardcoded)
+### Default Users
 
-The system comes with pre-configured users for immediate access:
+The system comes with pre-configured users for immediate access. **Credentials are stored in `credentials.txt` which is generated during setup.**
 
-| Role | Username | Password | Permissions |
-|------|----------|----------|-------------|
-| **Admin** | `admin` | `admin123` | Full access to all features |
-| **Reviewer** | `reviewer` | `review123` | Can view and edit content |
-| **User** | `user` | `user123` | Read-only access |
+> ⚠️ **IMPORTANT**: Delete `credentials.txt` immediately after changing the default passwords!
+
+**Quick Reference:**
+
+| Role | Permissions |
+|------|-------------|
+| **Admin** | Full access to all features |
+| **Reviewer** | Can view and edit content |
+| **User** | Read-only access |
+
+For complete credentials, check the `credentials.txt` file in your project directory.
 
 ### Role Permissions
 

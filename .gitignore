@@ -48,5 +48,8 @@ test
 prompt
 
 server.log
+# Credentials file (security)
+credentials.txt
+upload/
 # Skills directory
 /skills/

@@ -735,56 +735,126 @@ function Start-Application {
 # ============================================================================
 
 function Show-Credentials {
-    Write-Step "Default Credentials"
+    Write-Step "Generating Credentials File"
     
-    Write-Host @"
-
-  ┌─────────────────────────────────────────────────────────────────┐
-  │                    DEFAULT USER CREDENTIALS                      │
-  ├─────────────┬─────────────┬─────────────┬───────────────────────┤
-  │ Role        │ Username    │ Password    │ Access Level          │
-  ├─────────────┼─────────────┼─────────────┼───────────────────────┤
-  │ Admin       │ admin       │ admin123    │ Full Access           │
-  │ Reviewer    │ reviewer    │ review123   │ Create/Edit           │
-  │ User        │ user        │ user123     │ Read-Only             │
-  └─────────────┴─────────────┴─────────────┴───────────────────────┘
-
-"@
-
-    Write-Log "Displayed default credentials"
-    Write-Warning "Please change these credentials in production!"
+    # Generate credentials file instead of displaying on screen
+    Export-CredentialsFile
+    
+    Write-Host "`n  Credentials have been saved to: credentials.txt" -ForegroundColor $COLORS.Success
+    Write-Warning "DELETE credentials.txt AFTER CHANGING DEFAULT PASSWORDS!"
 }
 
 function Export-CredentialsFile {
     $credPath = Join-Path $SCRIPT_DIR "credentials.txt"
     
     $content = @"
-Personal Blog - Default Credentials
+================================================================================
+                         PERSONAL BLOG - CREDENTIALS
+================================================================================
+
 Generated: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
-================================================
 
-ADMIN ACCOUNT
-Username: admin
-Password: admin123
-Access: Full access to all features
+================================================================================
+                            ⚠️  WARNING  ⚠️
+================================================================================
 
-REVIEWER ACCOUNT  
-Username: reviewer
-Password: review123
-Access: Create and edit content
+  ╔═══════════════════════════════════════════════════════════════════════════╗
+  ║                                                                           ║
+  ║   DELETE THIS FILE IMMEDIATELY AFTER CHANGING THE DEFAULT PASSWORDS!      ║
+  ║                                                                           ║
+  ║   These credentials are for initial setup only and pose a security        ║
+  ║   risk if left unchanged. Please update all passwords before deploying    ║
+  ║   to production.                                                          ║
+  ║                                                                           ║
+  ╚═══════════════════════════════════════════════════════════════════════════╝
 
-USER ACCOUNT
-Username: user
-Password: user123
-Access: Read-only access
+================================================================================
+                           DEFAULT ACCOUNTS
+================================================================================
 
-================================================
-WARNING: Change these credentials in production!
-================================================
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              ADMIN ACCOUNT                                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  Username: admin                                                             │
+│  Password: admin123                                                          │
+│  Role:     Admin                                                             │
+│  Access:   Full access to all features                                       │
+│                                                                              │
+│  • Create, edit, and delete blog posts                                       │
+│  • Manage all users and permissions                                          │
+│  • Access admin dashboard                                                    │
+│  • Configure application settings                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                            REVIEWER ACCOUNT                                  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  Username: reviewer                                                          │
+│  Password: review123                                                         │
+│  Role:     Reviewer                                                          │
+│  Access:   Create and edit content                                           │
+│                                                                              │
+│  • Create and edit blog posts                                                │
+│  • Manage news items                                                         │
+│  • Manage external links                                                     │
+│  • Cannot delete content or manage users                                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              USER ACCOUNT                                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  Username: user                                                              │
+│  Password: user123                                                           │
+│  Role:     User                                                              │
+│  Access:   Read-only access                                                  │
+│                                                                              │
+│  • View blog posts                                                           │
+│  • View news ticker                                                          │
+│  • View external links                                                       │
+│  • Cannot create, edit, or delete any content                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+================================================================================
+                         SECURITY CHECKLIST
+================================================================================
+
+Before deploying to production, please complete the following:
+
+  [ ] Change the admin password
+  [ ] Change the reviewer password  
+  [ ] Change the user password (or remove this account)
+  [ ] DELETE THIS FILE
+  [ ] Update SESSION_SECRET in .env with a strong random string
+  [ ] Enable HTTPS/SSL
+  [ ] Review and update database credentials
+  [ ] Set NODE_ENV=production
+
+================================================================================
+                           HOW TO LOGIN
+================================================================================
+
+1. Navigate to: http://localhost:3000/login
+2. Enter your username and password
+3. Click "Sign In"
+4. You will be redirected to the home page
+
+For admin features, navigate to: http://localhost:3000/admin
+
+================================================================================
+                            REMEMBER
+================================================================================
+
+  ╔═══════════════════════════════════════════════════════════════════════════╗
+  ║                                                                           ║
+  ║                 DELETE THIS FILE AFTER CHANGING PASSWORDS!                ║
+  ║                                                                           ║
+  ╚═══════════════════════════════════════════════════════════════════════════╝
+
+================================================================================
 "@
     
     $content | Out-File -FilePath $credPath -Encoding UTF8 -Force
-    Write-Success "Credentials saved to $credPath"
+    Write-Success "Credentials file created at $credPath"
 }
 
 # ============================================================================
@@ -1206,12 +1276,11 @@ function Show-MainMenu {
         Write-Host "  Management:" -ForegroundColor $COLORS.Info
         Write-Host "    [3] Docker Manager   - Manage database container"
         Write-Host "    [4] System Status    - View current setup status"
-        Write-Host "    [5] Show Credentials - Display default login info"
-        Write-Host "    [6] Export Credentials - Save credentials to file"
+        Write-Host "    [5] Generate Credentials - Create credentials.txt file"
         Write-Host ""
         Write-Host "  Tools:" -ForegroundColor $COLORS.Info
-        Write-Host "    [7] Test Application - Run functionality tests"
-        Write-Host "    [8] View Logs        - Open setup log file"
+        Write-Host "    [6] Test Application - Run functionality tests"
+        Write-Host "    [7] View Logs        - Open setup log file"
         Write-Host ""
         Write-Host "    [Q] Quit" -ForegroundColor $COLORS.Warning
         Write-Host ""
@@ -1247,14 +1316,10 @@ function Show-MainMenu {
                 Read-Host "`n  Press Enter to continue"
             }
             "6" {
-                Export-CredentialsFile
-                Read-Host "`n  Press Enter to continue"
-            }
-            "7" {
                 Test-Application
                 Read-Host "`n  Press Enter to continue"
             }
-            "8" {
+            "7" {
                 if (Test-Path $LOG_FILE) {
                     Get-Content $LOG_FILE | Out-Host
                 } else {
