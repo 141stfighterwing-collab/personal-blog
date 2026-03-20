@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+// Role enum for user permissions
+enum Role {
+  ADMIN
+  REVIEWER
+  USER
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String   // In production, this should be hashed with bcrypt
+  email     String?  @unique
+  name      String?
+  role      Role     @default(USER)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  posts     BlogPost[]
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  content     String   // Markdown content
+  excerpt     String?  // Short description
+  slug        String   @unique
+  videoUrl    String?  // YouTube, Vimeo, TikTok URL for embedded videos
+  published   Boolean  @default(false)
+  authorId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  author      User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([published])
+  @@index([createdAt])
+}
+
+model ExternalLink {
+  id          String   @id @default(cuid())
+  title       String
+  url         String
+  description String?
+  category    String   // "blog", "news", "github", "other"
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+}
+
+model NewsItem {
+  id        String   @id @default(cuid())
+  headline  String
+  url       String?
+  category  String   @default("general") // "ai", "geopolitics", "cybersecurity", "general"
+  isActive  Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([isActive])
+  @@index([category])
+}
