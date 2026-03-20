@@ -159,3 +159,277 @@ model TeamMember {
 
   @@index([sortOrder])
 }
+
+// ============================================
+// ANALYTICS MODELS
+// ============================================
+
+// Page View Tracking
+model PageView {
+  id           String   @id @default(cuid())
+  sessionId    String   // Anonymous session identifier
+  visitorId    String   // Unique visitor identifier (hashed IP + UA)
+  url          String   // Full URL visited
+  path         String   // Path only (for aggregation)
+  query        String?  // Query parameters
+  referrer     String?  // Referrer URL
+  referrerHost String?  // Referrer domain (for aggregation)
+  
+  // User Agent Info
+  userAgent    String?  // Full user agent string
+  browser      String?  // Browser name (Chrome, Firefox, etc.)
+  browserVersion String?
+  os           String?  // Operating System
+  osVersion    String?
+  device       String?  // desktop, mobile, tablet
+  deviceBrand  String?
+  deviceModel  String?
+  
+  // Geographic Info (from IP)
+  ip           String?  // Hashed IP for privacy
+  country      String?
+  countryCode  String?
+  region       String?
+  city         String?
+  latitude     Float?
+  longitude    Float?
+  timezone     String?
+  
+  // Page Details
+  pageTitle    String?
+  pageType     String?  // home, blog, article, page, admin, etc.
+  articleId    String?  // If viewing a blog post
+  theme        String?  // Active theme
+  
+  // Performance
+  loadTime     Int?     // Page load time in ms
+  
+  // Timestamps
+  timestamp    DateTime @default(now())
+  date         String   // YYYY-MM-DD for aggregation
+  
+  @@index([sessionId])
+  @@index([visitorId])
+  @@index([path])
+  @@index([date])
+  @@index([timestamp])
+  @@index([articleId])
+  @@index([country])
+  @@index([device])
+}
+
+// Session Tracking
+model AnalyticsSession {
+  id           String   @id @default(cuid())
+  sessionId    String   @unique
+  visitorId    String
+  
+  // Entry/Exit
+  entryUrl     String
+  entryPath    String
+  exitUrl      String?
+  exitPath     String?
+  
+  // Session Data
+  pageViews    Int      @default(1)
+  duration     Int      @default(0)  // Total session duration in seconds
+  bounce       Boolean  @default(false)
+  
+  // Source
+  referrer     String?
+  referrerHost String?
+  utmSource    String?
+  utmMedium    String?
+  utmCampaign  String?
+  utmTerm      String?
+  utmContent   String?
+  
+  // Device
+  device       String?
+  browser      String?
+  os           String?
+  country      String?
+  
+  // Timestamps
+  startedAt    DateTime @default(now())
+  endedAt      DateTime?
+  lastActivity DateTime @default(now())
+  date         String   // YYYY-MM-DD
+  
+  @@index([visitorId])
+  @@index([date])
+  @@index([startedAt])
+  @@index([bounce])
+}
+
+// Click Event Tracking
+model ClickEvent {
+  id           String   @id @default(cuid())
+  sessionId    String
+  visitorId    String
+  
+  // Click Target
+  elementType  String?  // button, link, image, etc.
+  elementId    String?  // HTML id attribute
+  elementClass String?  // HTML class
+  elementText  String?  // Text content (truncated)
+  href         String?  // Link destination
+  
+  // Context
+  pageUrl      String
+  pagePath     String
+  
+  // Position
+  x            Int?
+  y            Int?
+  
+  // Timestamp
+  timestamp    DateTime @default(now())
+  date         String   // YYYY-MM-DD
+  
+  @@index([sessionId])
+  @@index([visitorId])
+  @@index([date])
+  @@index([elementType])
+  @@index([href])
+}
+
+// Article Analytics (aggregated per article per day)
+model ArticleAnalytics {
+  id           String   @id @default(cuid())
+  articleId    String
+  date         String   // YYYY-MM-DD
+  
+  // Views
+  views        Int      @default(0)
+  uniqueViews  Int      @default(0)
+  
+  // Engagement
+  avgTimeOnPage Int?    // Average time in seconds
+  totalReadTime Int     @default(0)  // Total read time for calculation
+  bounceRate   Float?   // Percentage
+  
+  // Interactions
+  shares       Int      @default(0)
+  comments     Int      @default(0)
+  
+  // Sources
+  organicViews Int      @default(0)  // From search engines
+  socialViews  Int      @default(0)  // From social media
+  directViews  Int      @default(0)  // Direct traffic
+  referralViews Int     @default(0)  // From other sites
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@unique([articleId, date])
+  @@index([articleId])
+  @@index([date])
+}
+
+// Daily Analytics Summary
+model DailyAnalytics {
+  id           String   @id @default(cuid())
+  date         String   @unique // YYYY-MM-DD
+  
+  // Sessions & Visitors
+  sessions     Int      @default(0)
+  uniqueVisitors Int    @default(0)
+  newVisitors  Int      @default(0)
+  returningVisitors Int @default(0)
+  
+  // Page Views
+  pageViews    Int      @default(0)
+  uniquePageViews Int   @default(0)
+  
+  // Engagement
+  avgSessionDuration Float?
+  avgPageViewsPerSession Float?
+  bounceRate   Float?
+  
+  // Traffic Sources
+  organicTraffic Int    @default(0)
+  directTraffic Int     @default(0)
+  referralTraffic Int   @default(0)
+  socialTraffic Int     @default(0)
+  emailTraffic Int      @default(0)
+  
+  // Top Sources (JSON)
+  topReferrers String?  // JSON array of {host, count}
+  topCountries String?  // JSON array of {country, count}
+  topPages     String?  // JSON array of {path, views}
+  
+  // Device Breakdown (JSON)
+  deviceBreakdown String? // JSON: {desktop, mobile, tablet}
+  browserBreakdown String? // JSON: {Chrome, Firefox, Safari, etc}
+  osBreakdown   String?  // JSON: {Windows, macOS, Linux, iOS, Android}
+  
+  // Performance
+  avgLoadTime  Float?
+  
+  // SEO
+  searchQueries String? // JSON array of {query, count}
+  impressions  Int      @default(0)
+  clicks       Int      @default(0)
+  avgPosition  Float?
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@index([date])
+}
+
+// SEO Tracking
+model SEOAnalytics {
+  id           String   @id @default(cuid())
+  date         String   // YYYY-MM-DD
+  pagePath     String
+  
+  // Search Engine Data
+  searchEngine String?  // Google, Bing, etc.
+  keyword      String?  // Search keyword
+  position     Int?     // Ranking position
+  impressions  Int      @default(0)
+  clicks       Int      @default(0)
+  ctr          Float?   // Click-through rate
+  
+  // Meta Data
+  title        String?
+  description  String?
+  h1           String?
+  
+  // Technical SEO
+  loadTime     Int?
+  statusCode   Int      @default(200)
+  indexed      Boolean  @default(true)
+  canonicalUrl String?
+  
+  timestamp    DateTime @default(now())
+  
+  @@unique([date, pagePath, keyword])
+  @@index([date])
+  @@index([pagePath])
+  @@index([keyword])
+}
+
+// Real-time Analytics (for dashboard)
+model RealtimeAnalytics {
+  id           String   @id @default(cuid())
+  
+  // Current Stats (updated frequently)
+  activeUsers  Int      @default(0)
+  pageViewsLastHour Int @default(0)
+  pageViewsLast24h Int  @default(0)
+  
+  // Top Pages Right Now
+  topPagesNow  String?  // JSON array
+  
+  // Recent Events
+  recentPageViews String? // JSON array of last 100
+  recentClicks   String? // JSON array of last 100
+  
+  // Timestamp
+  updatedAt    DateTime @updatedAt
+  
+  @@index([id])
+}

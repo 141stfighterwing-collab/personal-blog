@@ -26,7 +26,8 @@ import {
   Video,
   Layout,
   Image as ImageIcon,
-  ExternalLink
+  ExternalLink,
+  BarChart3
 } from 'lucide-react'
 import { getRoleDisplayName, getRoleBadgeColor, canCreate, canDelete } from '@/lib/permissions'
 import { useToast } from '@/hooks/use-toast'
@@ -431,14 +432,14 @@ export default function AdminDashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="border-dashed hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors cursor-pointer">
+              <Card className="border-dashed hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors cursor-pointer" onClick={() => router.push('/admin/analytics')}>
                 <CardContent className="flex items-center gap-3 p-4">
                   <div className="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
-                    <Link2 className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                    <BarChart3 className="w-5 h-5 text-orange-600 dark:text-orange-400" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-gray-100">Add Link</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">External resource</p>
+                    <p className="font-medium text-gray-900 dark:text-gray-100">Analytics</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">View site analytics</p>
                   </div>
                 </CardContent>
               </Card>

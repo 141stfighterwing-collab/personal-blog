@@ -1,7 +1,7 @@
 {
   "name": "personal-blog",
-  "version": "1.5.0",
-  "description": "Personal blog with multi-category news ticker, markdown posts, page builder, classic themes, and role-based authentication",
+  "version": "1.6.0",
+  "description": "Personal blog with analytics, multi-category news ticker, markdown posts, page builder, classic themes, and role-based authentication",
   "author": "Shootre21",
   "license": "MIT",
   "repository": {

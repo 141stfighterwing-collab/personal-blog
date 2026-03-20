@@ -2,7 +2,7 @@
 
 A modern, full-featured personal blog built with Next.js 16, featuring a dynamic RSS-powered news ticker, markdown blog posts, layered page builder, and role-based authentication.
 
-![Version](https://img.shields.io/badge/Version-1.5.0-brightgreen?style=flat-square)
+![Version](https://img.shields.io/badge/Version-1.6.0-brightgreen?style=flat-square)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?style=flat-square&logo=tailwind-css)
