@@ -7,6 +7,62 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.5.0] - 2026-03-21
+
+### 🎨 Added - Classic WordPress Theme System
+- **Three Classic Themes**: Twenty Ten (2010), Twenty Eleven (2011), Twenty Twelve (2012)
+- **Theme Switcher**: Visual dialog with theme previews
+- **Theme-Specific Layouts**: Each theme has unique header, sidebar, and typography
+- **Twenty Ten Features**:
+  - Full-width header image with tree-lined path
+  - Right sidebar with calendar widget
+  - Search box and archives
+  - Georgia serif headings
+- **Twenty Eleven Features**:
+  - Featured posts section with star highlights
+  - Left sidebar with archives
+  - Industrial/modern header image
+  - Shadow card style
+- **Twenty Twelve Features**:
+  - Centered header with clean typography
+  - "Meet the Team" section
+  - Right sidebar with recent posts
+  - Flat design style
+
+### 🎨 Theme Configuration
+- **CSS Variables**: Dynamic theme colors and typography
+- **localStorage Persistence**: Theme choice saved locally
+- **Dark Mode Toggle**: Works with all themes
+- **Preview Images**: Generated AI header images for each theme
+
+### 📁 New Files
+- `src/components/themes/` - Theme layout components
+- `src/contexts/ThemeContext.tsx` - Theme state management
+- `src/lib/themes/config.ts` - Theme configuration
+- `public/themes/` - Theme header and preview images
+
+### 🗄️ Database
+- **SiteSettings Model**: Store theme preferences
+- **TeamMember Model**: Team members for Twenty Twelve theme
+
+---
+
+## [1.4.0] - 2026-03-21
+
+### 📸 Added - Playwright Screenshots & Documentation
+- **Playwright Configuration**: Automated browser testing setup
+- **Screenshot Tests**: 10 tests capturing all app features
+- **Fresh Screenshots**: Updated all screenshots via Playwright
+- **README Redesign**: Modern layout with comprehensive documentation
+
+### 🏗️ Page Builder Enhancement
+- **WordPress-Style Editor**: Block-based content creation
+- **12 Block Types**: Hero, Text, Image, Gallery, Video, Quote, etc.
+- **Free Image Sources**: Links to Unsplash, Pexels, Pixabay, Burst, StockSnap
+- **Drag & Drop**: Reorder blocks with controls
+
+---
+
 ## [1.3.1] - 2026-03-21
 
 ### 🔒 Security
@@ -177,6 +233,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Key Changes |
 |---------|------|-------------|
+| **1.5.0** | 2026-03-21 | Classic WordPress themes (Twenty Ten, Eleven, Twelve) |
+| **1.4.0** | 2026-03-21 | Playwright screenshots, README redesign, page builder |
 | **1.3.1** | 2026-03-21 | Security: Credentials removed from UI, screenshots added |
 | **1.3.0** | 2026-03-17 | Video embeds, enhanced admin dashboard |
 | **1.2.0** | 2026-03-17 | Live RSS news feeds |
@@ -188,7 +246,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Upgrade Guide
 
-### From 1.3.0 to 1.3.1
+### From 1.4.0 to 1.5.0
+1. Pull latest changes
+2. Run `bun run db:push` to add new models
+3. Click Theme button to select your preferred theme
+4. Theme preference is saved automatically
+
+### From 1.3.1 to 1.4.0
 1. Pull latest changes
 2. Run `./setup.ps1` and select `[5] Generate Credentials`
 3. Review `credentials.txt` and change default passwords
