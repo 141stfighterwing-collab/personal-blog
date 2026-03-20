@@ -2,7 +2,7 @@
 
 A modern, responsive personal blog built with Next.js 16, featuring a dynamic news ticker with multiple categories (AI, Geopolitics, Cybersecurity), markdown-based blog posts, and a role-based authentication system.
 
-![Version](https://img.shields.io/badge/Version-1.2.0-brightgreen?style=flat-square)
+![Version](https://img.shields.io/badge/Version-1.3.0-brightgreen?style=flat-square)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?style=flat-square&logo=tailwind-css)
@@ -10,6 +10,7 @@ A modern, responsive personal blog built with Next.js 16, featuring a dynamic ne
 ![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?style=flat-square&logo=prisma)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker)
 ![RSS](https://img.shields.io/badge/RSS_Live-Feeds-orange?style=flat-square)
+![Video](https://img.shields.io/badge/Video_Embeds-YouTube-red?style=flat-square&logo=youtube)
 
 **[📖 Documentation](./README.md) • [📝 Changelog](./CHANGELOG.md) • [🔄 Updates](./UPDATES.md) • [🗄️ Database Guide](./DATABASE.md)**
 
@@ -27,6 +28,7 @@ A modern, responsive personal blog built with Next.js 16, featuring a dynamic ne
 
 ### Blog System
 - **Markdown Support**: Write posts in markdown with full syntax highlighting
+- **Video Embeds**: Embed YouTube, Vimeo, and TikTok videos in posts
 - **Expandable Cards**: Click to expand/collapse full post content
 - **Code Blocks**: Syntax highlighting for code snippets
 - **Publication Dates**: Automatic timestamps for each post
@@ -102,9 +104,57 @@ personal-blog/
 
 - **Node.js 18+** or **Bun**
 - **Docker** (for PostgreSQL database)
+- **PowerShell 5.1+** (for Windows auto-setup)
 - npm, yarn, or bun
 
-### Installation
+---
+
+## ⚡ Quick Setup (Windows)
+
+### Automated PowerShell Setup
+
+Run the included PowerShell setup script for automatic configuration:
+
+```powershell
+# Run from the project directory
+./setup.ps1
+```
+
+The script provides:
+- **Quick Setup** - Fully automated with sensible defaults
+- **Manual Setup** - Guided step-by-step configuration
+- **Docker Management** - Start/stop/restart database
+- **System Status** - View current setup state
+- **Testing** - Verify installation
+- **Progress Tracking** - Visual progress bar with real-time feedback
+
+### Setup Features
+
+| Feature | Description |
+|---------|-------------|
+| 🔐 **Credentials** | Auto-creates default admin/reviewer/user accounts |
+| 🗄️ **Database** | Installs & configures PostgreSQL via Docker or standalone |
+| ⚙️ **Configuration** | Generates .env with database connection |
+| 📦 **Dependencies** | Installs npm/bun packages automatically |
+| 🧪 **Testing** | Validates API endpoints and connectivity |
+| 📊 **Logging** | Full setup log saved to `logs/` folder |
+
+### Setup Menu Options
+
+```
+[1] Quick Setup      - Automated setup with defaults
+[2] Manual Setup     - Guided configuration
+[3] Docker Manager   - Manage database container
+[4] System Status    - View current setup status
+[5] Show Credentials - Display default login info
+[6] Export Credentials - Save credentials to file
+[7] Test Application - Run functionality tests
+[8] View Logs        - Open setup log file
+```
+
+---
+
+### Manual Installation
 
 1. **Clone the repository**
    ```bash
