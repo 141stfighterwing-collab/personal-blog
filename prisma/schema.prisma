@@ -31,6 +31,7 @@ model User {
 
   // Relations
   posts     BlogPost[]
+  pages     Page[]
 }
 
 model BlogPost {
@@ -76,4 +77,58 @@ model NewsItem {
 
   @@index([isActive])
   @@index([category])
+}
+
+// Page Block types for layered content creation
+enum BlockType {
+  HERO         // Full-width banner with title
+  TEXT         // Rich text paragraph
+  IMAGE        // Single image with caption
+  GALLERY      // Multiple images grid
+  VIDEO        // Video embed
+  QUOTE        // Blockquote
+  DIVIDER      // Horizontal rule
+  COLUMNS      // Multi-column layout
+  SIDEBAR      // Sidebar content
+  CTA          // Call to action button
+  CODE         // Code block
+  EMBED        // Custom embed (iframe)
+}
+
+model Page {
+  id          String      @id @default(cuid())
+  title       String
+  slug        String      @unique
+  description String?     // Meta description for SEO
+  bannerUrl   String?     // Hero/banner image URL
+  bannerAlt   String?     // Alt text for banner
+  showSidebar Boolean     @default(true)
+  sidebarMenu String?     // JSON array of menu items
+  published   Boolean     @default(false)
+  authorId    String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  author      User?       @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  blocks      PageBlock[]
+
+  @@index([published])
+  @@index([slug])
+}
+
+model PageBlock {
+  id        String   @id @default(cuid())
+  pageId    String
+  blockType BlockType
+  content   String   // JSON content specific to block type
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  page      Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@index([pageId])
+  @@index([sortOrder])
 }
