@@ -2,7 +2,7 @@
 
 A modern, full-featured personal blog built with Next.js 16, featuring a dynamic RSS-powered news ticker, markdown blog posts, layered page builder, and role-based authentication.
 
-![Version](https://img.shields.io/badge/Version-1.4.0-brightgreen?style=flat-square)
+![Version](https://img.shields.io/badge/Version-1.5.0-brightgreen?style=flat-square)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?style=flat-square&logo=tailwind-css)
@@ -143,6 +143,7 @@ personal-blog/
 │   ├── components/
 │   │   ├── ui/                # shadcn/ui components
 │   │   ├── page-builder/      # Page builder components
+│   │   ├── themes/            # Theme layouts and switcher
 │   │   ├── NewsMarquee.tsx    # News ticker
 │   │   ├── BlogSection.tsx    # Blog display
 │   │   ├── LinksSection.tsx   # Links display
@@ -152,9 +153,11 @@ personal-blog/
 │   │   ├── db.ts              # Prisma client
 │   │   ├── auth/              # Auth utilities
 │   │   ├── permissions.ts     # Role permissions
+│   │   ├── themes/            # Theme configuration
 │   │   └── rss/               # RSS configuration
 │   └── hooks/                 # Custom React hooks
 ├── public/
+│   ├── themes/                # Theme header images
 │   └── screenshots/           # Application screenshots
 ├── tests/                     # Playwright tests
 ├── setup.ps1                  # Windows auto-configuration
@@ -418,6 +421,62 @@ The page builder includes quick links to:
 ## 🌙 Dark Mode
 
 Built-in dark mode support using `next-themes`. Automatically follows system preference or can be toggled manually.
+
+---
+
+## 🎨 Classic WordPress Themes
+
+The blog includes three classic WordPress-inspired themes, each with distinct layouts, typography, and features:
+
+### Theme Selection
+
+Click the **Theme** button in the header to open the theme selector with visual previews. Your choice is saved to localStorage.
+
+### Twenty Ten (2010)
+
+The classic WordPress default theme featuring:
+- **Full-width header image** with landscape photography
+- **Right sidebar** with calendar widget
+- **Search box** and archives
+- **Recent posts** widget
+- **Georgia serif headings** for classic feel
+
+![Twenty Ten Theme](./public/themes/twenty-ten-preview.png)
+
+### Twenty Eleven (2011)
+
+A sophisticated theme with:
+- **Featured posts section** with star highlights
+- **Left sidebar** with archives
+- **Industrial/modern header image**
+- **Search in header**
+- **Shadow card style**
+
+![Twenty Eleven Theme](./public/themes/twenty-eleven-preview.png)
+
+### Twenty Twelve (2012)
+
+A modern, responsive theme featuring:
+- **Centered header** with clean typography
+- **"Meet the Team" section** for team members
+- **Right sidebar** with recent posts
+- **Flat design** style
+- **Open Sans typography**
+
+![Twenty Twelve Theme](./public/themes/twenty-twelve-preview.png)
+
+### Theme Features Comparison
+
+| Feature | Twenty Ten | Twenty Eleven | Twenty Twelve |
+|---------|:----------:|:-------------:|:-------------:|
+| Calendar Widget | ✅ | ❌ | ❌ |
+| Featured Posts | ❌ | ✅ | ❌ |
+| Team Section | ❌ | ❌ | ✅ |
+| Search Box | ✅ | ✅ | ❌ |
+| Archives | ✅ | ✅ | ❌ |
+| Left Sidebar | ❌ | ✅ | ❌ |
+| Right Sidebar | ✅ | ❌ | ✅ |
+| Dark Mode | ✅ | ✅ | ✅ |
 
 ---
 
