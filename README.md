@@ -2,7 +2,7 @@
 
 A modern, responsive personal blog built with Next.js 16, featuring a dynamic news ticker with multiple categories (AI, Geopolitics, Cybersecurity), markdown-based blog posts, and a role-based authentication system.
 
-![Version](https://img.shields.io/badge/Version-1.3.0-brightgreen?style=flat-square)
+![Version](https://img.shields.io/badge/Version-1.3.1-brightgreen?style=flat-square)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?style=flat-square&logo=tailwind-css)
@@ -12,7 +12,7 @@ A modern, responsive personal blog built with Next.js 16, featuring a dynamic ne
 ![RSS](https://img.shields.io/badge/RSS_Live-Feeds-orange?style=flat-square)
 ![Video](https://img.shields.io/badge/Video_Embeds-YouTube-red?style=flat-square&logo=youtube)
 
-**[📖 Documentation](./README.md) • [📝 Changelog](./CHANGELOG.md) • [🔄 Updates](./UPDATES.md) • [🗄️ Database Guide](./DATABASE.md)**
+**[📖 Documentation](./README.md) • [📝 Changelog](./CHANGELOG.md) • [🗺️ Roadmap](./ROADMAP.md) • [🔄 Updates](./UPDATES.md) • [🗄️ Database Guide](./DATABASE.md)**
 
 ---
 

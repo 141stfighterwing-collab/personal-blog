@@ -1,6 +1,6 @@
 {
   "name": "personal-blog",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Personal blog with multi-category news ticker, markdown posts, and role-based authentication",
   "author": "Shootre21",
   "license": "MIT",

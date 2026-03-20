@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.1] - 2026-03-21
+
+### 🔒 Security
+- **Removed Credentials from UI**: Demo credentials no longer displayed on login page
+- **Credentials File**: Created `credentials.txt` with security warning message
+- **Git Ignore**: Added `credentials.txt` to `.gitignore` to prevent accidental commits
+- **Clear Warning**: Added prominent "DELETE THIS FILE" warning in credentials file
+
+### 📸 Documentation
+- **Playwright Screenshots**: Added automated screenshot capture with Playwright
+- **Application Screenshots**: Home page, news ticker, blog section, dark mode, mobile view
+- **PowerShell Demos**: Generated AI images showing setup script in action
+- **README Updates**: Integrated screenshots throughout documentation
+
+### 🛠️ Changed
+- **PowerShell Script**: Updated to generate credentials file instead of displaying on screen
+- **Login Page**: Removed demo credentials section for cleaner, more secure interface
+- **Menu Options**: Simplified to single "Generate Credentials" option
+
+### 📁 New Files
+- `credentials.txt` - Default credentials with security warnings (git-ignored)
+- `public/screenshots/` - Application and PowerShell demo screenshots
+
+---
+
 ## [1.3.0] - 2026-03-17
 
 ### 🎬 Added - Video Embed Support & Admin Enhancements
@@ -93,9 +118,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🔐 Added - Authentication System
 - **Role-Based Access Control (RBAC)**: Admin, Reviewer, User roles
 - **Hardcoded Users**: Demo accounts for immediate testing
-  - `admin` / `admin123` - Full access
-  - `reviewer` / `review123` - Create/Edit access
-  - `user` / `user123` - Read-only access
 - **Login Page**: `/login` with demo credentials display
 - **User Menu Component**: Shows username, role badge, logout
 - **Admin Dashboard**: `/admin` with stats and quick actions
@@ -155,6 +177,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Key Changes |
 |---------|------|-------------|
+| **1.3.1** | 2026-03-21 | Security: Credentials removed from UI, screenshots added |
 | **1.3.0** | 2026-03-17 | Video embeds, enhanced admin dashboard |
 | **1.2.0** | 2026-03-17 | Live RSS news feeds |
 | **1.1.0** | 2026-03-17 | PostgreSQL database, Docker support |
@@ -163,19 +186,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## Upcoming Features (Roadmap)
+## Upgrade Guide
 
-### [1.4.0] - Planned
-- [ ] Edit post functionality
-- [ ] Comment system on blog posts
-- [ ] Social media sharing buttons
-- [ ] Email notifications
+### From 1.3.0 to 1.3.1
+1. Pull latest changes
+2. Run `./setup.ps1` and select `[5] Generate Credentials`
+3. Review `credentials.txt` and change default passwords
+4. Delete `credentials.txt` after changing passwords
 
-### [2.0.0] - Future
-- [ ] User registration with email verification
-- [ ] Password hashing with bcrypt
-- [ ] Two-factor authentication (2FA)
-- [ ] Multi-tenant support
-- [ ] Custom themes
-- [ ] Plugin system
-- [ ] API rate limiting
+### From 1.2.0 to 1.3.0
+1. Pull latest changes
+2. Run `bunx prisma generate` to update Prisma client
+3. Run `bunx prisma db push` to add videoUrl field
+4. Restart application
+
+### From 1.1.0 to 1.2.0
+1. Pull latest changes
+2. Run `bun install` to add `rss-parser`
+3. Restart application (RSS feeds work automatically)
+
+---
+
+See [ROADMAP.md](./ROADMAP.md) for planned future features.
