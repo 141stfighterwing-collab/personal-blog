@@ -16,6 +16,40 @@ A modern, responsive personal blog built with Next.js 16, featuring a dynamic ne
 
 ---
 
+## 📸 Screenshots
+
+### Home Page
+![Home Page](./public/screenshots/home-page.png)
+
+### News Ticker with Controls
+![News Ticker Controls](./public/screenshots/news-ticker-controls.png)
+
+### Blog Section
+![Blog Section](./public/screenshots/blog-section.png)
+
+### Dark Mode
+![Dark Mode](./public/screenshots/dark-mode.png)
+
+### Mobile Responsive
+![Mobile View](./public/screenshots/mobile-view.png)
+
+### Login Page
+![Login Page](./public/screenshots/login-page.png)
+
+### Admin Dashboard
+![Admin Dashboard](./public/screenshots/admin-dashboard.png)
+
+### PowerShell Setup Script
+![PowerShell Setup](./public/screenshots/powershell-setup-demo.png)
+
+### PowerShell Menu System
+![PowerShell Menu](./public/screenshots/powershell-menu-demo.png)
+
+### PowerShell Progress Tracking
+![PowerShell Progress](./public/screenshots/powershell-progress-demo.png)
+
+---
+
 ## 🚀 Features
 
 ### News Ticker Marquee
@@ -119,6 +153,8 @@ Run the included PowerShell setup script for automatic configuration:
 # Run from the project directory
 ./setup.ps1
 ```
+
+![PowerShell Setup Demo](./public/screenshots/powershell-setup-demo.png)
 
 The script provides:
 - **Quick Setup** - Fully automated with sensible defaults

@@ -134,6 +134,7 @@ export default function BlogSection() {
                   >
                     {post.content}
                   </ReactMarkdown>
+                  </div>
                 </div>
               ) : (
                 <p className="text-gray-600 dark:text-gray-400">
