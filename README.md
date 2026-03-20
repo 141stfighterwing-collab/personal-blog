@@ -441,7 +441,7 @@ The classic WordPress default theme featuring:
 - **Recent posts** widget
 - **Georgia serif headings** for classic feel
 
-![Twenty Ten Theme](./public/themes/twenty-ten-preview.png)
+![Twenty Ten Theme](./public/themes/twenty-ten-screenshot.png)
 
 ### Twenty Eleven (2011)
 
@@ -452,7 +452,7 @@ A sophisticated theme with:
 - **Search in header**
 - **Shadow card style**
 
-![Twenty Eleven Theme](./public/themes/twenty-eleven-preview.png)
+![Twenty Eleven Theme](./public/themes/twenty-eleven-screenshot.png)
 
 ### Twenty Twelve (2012)
 
@@ -463,7 +463,7 @@ A modern, responsive theme featuring:
 - **Flat design** style
 - **Open Sans typography**
 
-![Twenty Twelve Theme](./public/themes/twenty-twelve-preview.png)
+![Twenty Twelve Theme](./public/themes/twenty-twelve-screenshot.png)
 
 ### Theme Features Comparison
 

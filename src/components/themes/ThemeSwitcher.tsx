@@ -26,9 +26,9 @@ import { cn } from '@/lib/utils'
 
 // Theme preview images
 const themePreviews: Record<string, string> = {
-  'twenty-ten': '/themes/twenty-ten-preview.png',
-  'twenty-eleven': '/themes/twenty-eleven-preview.png',
-  'twenty-twelve': '/themes/twenty-twelve-preview.png',
+  'twenty-ten': '/themes/twenty-ten-screenshot.png',
+  'twenty-eleven': '/themes/twenty-eleven-screenshot.png',
+  'twenty-twelve': '/themes/twenty-twelve-screenshot.png',
 }
 
 export function ThemeSwitcher() {
