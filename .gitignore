@@ -52,4 +52,4 @@ server.log
 credentials.txt
 upload/
 # Skills directory
-/skills/
+/skills/test-results/

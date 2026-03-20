@@ -1,99 +1,120 @@
-# Personal Blog with Multi-Category News Ticker
+# Personal Blog Platform
 
-A modern, responsive personal blog built with Next.js 16, featuring a dynamic news ticker with multiple categories (AI, Geopolitics, Cybersecurity), markdown-based blog posts, and a role-based authentication system.
+A modern, full-featured personal blog built with Next.js 16, featuring a dynamic RSS-powered news ticker, markdown blog posts, layered page builder, and role-based authentication.
 
-![Version](https://img.shields.io/badge/Version-1.3.1-brightgreen?style=flat-square)
+![Version](https://img.shields.io/badge/Version-1.4.0-brightgreen?style=flat-square)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?style=flat-square&logo=tailwind-css)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?style=flat-square&logo=postgresql)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Ready-336791?style=flat-square&logo=postgresql)
 ![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?style=flat-square&logo=prisma)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker)
-![RSS](https://img.shields.io/badge/RSS_Live-Feeds-orange?style=flat-square)
-![Video](https://img.shields.io/badge/Video_Embeds-YouTube-red?style=flat-square&logo=youtube)
 
-**[📖 Documentation](./README.md) • [📝 Changelog](./CHANGELOG.md) • [🗺️ Roadmap](./ROADMAP.md) • [🔄 Updates](./UPDATES.md) • [🗄️ Database Guide](./DATABASE.md)**
+**[📝 Changelog](./CHANGELOG.md) • [🗺️ Roadmap](./ROADMAP.md) • [🗄️ Database Guide](./DATABASE.md)**
 
 ---
 
-## 📸 Screenshots
+## 📸 Application Screenshots
 
-### Home Page
+### Home Page with News Ticker
+The home page features a live RSS-powered news ticker with multiple categories (AI, Geopolitics, Cybersecurity) and a tabbed interface for blog posts and links.
+
 ![Home Page](./public/screenshots/home-page.png)
 
-### News Ticker with Controls
+### News Ticker Controls
+Interactive controls allow you to pause/play the ticker and adjust scrolling speed.
+
 ![News Ticker Controls](./public/screenshots/news-ticker-controls.png)
 
-### Blog Section
+### Blog Posts Section
+Markdown-powered blog posts with expandable content, code syntax highlighting, and video embed support.
+
 ![Blog Section](./public/screenshots/blog-section.png)
 
+### Links & Resources
+Organize your favorite links by category with visual icons for easy identification.
+
+![Links Section](./public/screenshots/links-section.png)
+
 ### Dark Mode
+Full dark mode support with automatic system preference detection.
+
 ![Dark Mode](./public/screenshots/dark-mode.png)
 
 ### Mobile Responsive
+Touch-friendly design that works perfectly on all screen sizes.
+
 ![Mobile View](./public/screenshots/mobile-view.png)
 
 ### Login Page
+Secure authentication with role-based access control.
+
 ![Login Page](./public/screenshots/login-page.png)
 
 ### Admin Dashboard
+Full administrative control panel for managing content.
+
 ![Admin Dashboard](./public/screenshots/admin-dashboard.png)
 
-### PowerShell Setup Script
-![PowerShell Setup](./public/screenshots/powershell-setup-demo.png)
+### Page Builder
+WordPress-style layered page builder with drag-and-drop content blocks and free image source integration.
 
-### PowerShell Menu System
-![PowerShell Menu](./public/screenshots/powershell-menu-demo.png)
-
-### PowerShell Progress Tracking
-![PowerShell Progress](./public/screenshots/powershell-progress-demo.png)
+![Page Builder](./public/screenshots/page-builder.png)
 
 ---
 
-## 🚀 Features
+## ✨ Key Features
 
-### News Ticker Marquee
-- **Multi-Category Support**: AI, Geopolitics, Cybersecurity, and General news
-- **Color-Coded Categories**: Each category has unique colors and icons
-- **Speed Controls**: Slow, Normal, and Fast scrolling options
-- **Pause/Play**: Stop the ticker to read headlines at your own pace
-- **Infinite Loop**: Seamless continuous scrolling animation
-- **Responsive Design**: Works perfectly on desktop and mobile
+### 📰 Live RSS News Ticker
+- **Multi-Category Feeds**: AI, Geopolitics, Cybersecurity, and General news
+- **Real-Time Updates**: Pulls live headlines from RSS sources
+- **Interactive Controls**: Pause/play, speed adjustment (Slow/Normal/Fast)
+- **Color-Coded Categories**: Visual distinction for each news type
+- **5-Minute Cache**: Optimized performance with automatic refresh
 
-### Blog System
-- **Markdown Support**: Write posts in markdown with full syntax highlighting
-- **Video Embeds**: Embed YouTube, Vimeo, and TikTok videos in posts
-- **Expandable Cards**: Click to expand/collapse full post content
-- **Code Blocks**: Syntax highlighting for code snippets
-- **Publication Dates**: Automatic timestamps for each post
-- **Excerpt Support**: Short previews for each post
+### 📝 Blog System
+- **Markdown Support**: Full markdown syntax with code highlighting
+- **Video Embeds**: YouTube, Vimeo, and TikTok integration
+- **Expandable Cards**: Click to reveal full post content
+- **Publication Dates**: Automatic timestamping
+- **SEO-Friendly**: Meta descriptions and slug-based URLs
 
-### Links & Resources
-- **Categorized Links**: Organize by GitHub, Blog, News, and Other
-- **Visual Icons**: Category-specific icons for easy identification
-- **External Link Support**: Opens in new tab with proper security attributes
+### 🔗 Links Management
+- **Categorized Links**: GitHub, Blog, News, and Other categories
+- **Visual Icons**: Category-specific icons for quick identification
+- **External Link Support**: Opens in new tab with security attributes
 
-### Authentication & Permissions
-- **Role-Based Access Control (RBAC)**: Admin, Reviewer, and User roles
-- **Hardcoded Admin**: Quick admin access without database setup
-- **Session Management**: Secure session handling
+### 🏗️ Page Builder (NEW!)
+- **WordPress-Style Editor**: Familiar block-based content creation
+- **12 Block Types**: Hero, Text, Image, Gallery, Video, Quote, Divider, Columns, Sidebar, CTA, Code, Embed
+- **Drag & Drop**: Reorder blocks with up/down controls
+- **Banner Images**: Full-width page banners with alt text
+- **Sidebar Support**: Toggle sidebar with custom menu items
+- **Free Image Sources**: Quick links to Unsplash, Pexels, Pixabay, Burst, StockSnap
+
+### 🔐 Authentication & Roles
+- **Role-Based Access Control**: Admin, Reviewer, and User roles
+- **Secure Sessions**: Encrypted session management
 - **Protected Routes**: Role-based route protection
+- **Hardcoded Admin**: Quick access for development
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
-| Technology | Purpose |
-|------------|---------|
-| **Next.js 16** | React framework with App Router |
-| **TypeScript** | Type-safe JavaScript |
-| **Tailwind CSS 4** | Utility-first CSS framework |
-| **shadcn/ui** | Beautiful UI components |
-| **Prisma** | Database ORM |
-| **PostgreSQL** | Production database (Docker ready) |
-| **Docker Compose** | Container orchestration |
-| **Lucide Icons** | Beautiful open-source icons |
-| **react-markdown** | Markdown rendering |
+| Layer | Technology | Purpose |
+|-------|------------|---------|
+| Framework | Next.js 16 | React framework with App Router |
+| Language | TypeScript | Type-safe JavaScript |
+| Styling | Tailwind CSS 4 | Utility-first CSS |
+| UI Components | shadcn/ui | Beautiful, accessible components |
+| Database ORM | Prisma | Type-safe database access |
+| Database | PostgreSQL / SQLite | Production / Development |
+| Container | Docker Compose | PostgreSQL containerization |
+| Icons | Lucide React | Beautiful open-source icons |
+| Animation | Framer Motion | Smooth UI animations |
+| Markdown | react-markdown | Markdown rendering |
+| RSS | rss-parser | Feed parsing |
 
 ---
 
@@ -106,28 +127,39 @@ personal-blog/
 ├── src/
 │   ├── app/
 │   │   ├── api/
-│   │   │   ├── auth/          # Authentication API routes
-│   │   │   ├── posts/         # Blog posts API
-│   │   │   ├── links/         # External links API
-│   │   │   └── news/          # News ticker API
+│   │   │   ├── auth/          # Authentication endpoints
+│   │   │   ├── posts/         # Blog posts CRUD
+│   │   │   ├── pages/         # Custom pages CRUD
+│   │   │   ├── links/         # External links CRUD
+│   │   │   ├── news/          # News items CRUD
+│   │   │   ├── rss/           # RSS feed parser
+│   │   │   └── seed/          # Database seeding
 │   │   ├── login/             # Login page
 │   │   ├── admin/             # Admin dashboard
+│   │   │   └── pages/new/     # Page builder
+│   │   ├── [slug]/page/       # Dynamic page rendering
 │   │   ├── layout.tsx         # Root layout
 │   │   └── page.tsx           # Home page
 │   ├── components/
 │   │   ├── ui/                # shadcn/ui components
-│   │   ├── NewsMarquee.tsx    # News ticker component
-│   │   ├── BlogSection.tsx    # Blog posts display
-│   │   ├── LinksSection.tsx   # External links
-│   │   └── auth/              # Authentication components
+│   │   ├── page-builder/      # Page builder components
+│   │   ├── NewsMarquee.tsx    # News ticker
+│   │   ├── BlogSection.tsx    # Blog display
+│   │   ├── LinksSection.tsx   # Links display
+│   │   ├── VideoEmbed.tsx     # Video embeds
+│   │   └── auth/              # Auth components
 │   ├── lib/
 │   │   ├── db.ts              # Prisma client
-│   │   ├── auth.ts            # Auth utilities
-│   │   └── permissions.ts     # Role permissions
+│   │   ├── auth/              # Auth utilities
+│   │   ├── permissions.ts     # Role permissions
+│   │   └── rss/               # RSS configuration
 │   └── hooks/                 # Custom React hooks
-├── public/                    # Static assets
-├── .env                       # Environment variables
-└── package.json               # Dependencies
+├── public/
+│   └── screenshots/           # Application screenshots
+├── tests/                     # Playwright tests
+├── setup.ps1                  # Windows auto-configuration
+├── docker-compose.yml         # PostgreSQL container
+└── .env                       # Environment variables
 ```
 
 ---
@@ -138,42 +170,17 @@ personal-blog/
 
 - **Node.js 18+** or **Bun**
 - **Docker** (for PostgreSQL database)
-- **PowerShell 5.1+** (for Windows auto-setup)
-- npm, yarn, or bun
+- **PowerShell 5.1+** (Windows auto-setup)
 
 ---
 
 ## ⚡ Quick Setup (Windows)
 
-### Automated PowerShell Setup
-
-Run the included PowerShell setup script for automatic configuration:
+Run the included PowerShell script for automatic configuration:
 
 ```powershell
-# Run from the project directory
 ./setup.ps1
 ```
-
-![PowerShell Setup Demo](./public/screenshots/powershell-setup-demo.png)
-
-The script provides:
-- **Quick Setup** - Fully automated with sensible defaults
-- **Manual Setup** - Guided step-by-step configuration
-- **Docker Management** - Start/stop/restart database
-- **System Status** - View current setup state
-- **Testing** - Verify installation
-- **Progress Tracking** - Visual progress bar with real-time feedback
-
-### Setup Features
-
-| Feature | Description |
-|---------|-------------|
-| 🔐 **Credentials** | Auto-creates default admin/reviewer/user accounts |
-| 🗄️ **Database** | Installs & configures PostgreSQL via Docker or standalone |
-| ⚙️ **Configuration** | Generates .env with database connection |
-| 📦 **Dependencies** | Installs npm/bun packages automatically |
-| 🧪 **Testing** | Validates API endpoints and connectivity |
-| 📊 **Logging** | Full setup log saved to `logs/` folder |
 
 ### Setup Menu Options
 
@@ -188,76 +195,81 @@ The script provides:
 [Q] Quit
 ```
 
+### Setup Features
+
+| Feature | Description |
+|---------|-------------|
+| 🔐 **Credentials** | Auto-creates admin/reviewer/user accounts |
+| 🗄️ **Database** | Installs & configures PostgreSQL via Docker |
+| ⚙️ **Configuration** | Generates .env with database connection |
+| 📦 **Dependencies** | Installs npm/bun packages automatically |
+| 🧪 **Testing** | Validates API endpoints and connectivity |
+| 📊 **Logging** | Full setup log saved to `logs/` folder |
+| 📈 **Progress Bar** | Visual progress tracking with percentage |
+
 ---
 
-### Manual Installation
+## 🔧 Manual Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/141stfighterwing-collab/personal-blog.git
-   cd personal-blog
-   ```
+### 1. Clone & Install
 
-2. **Install dependencies**
-   ```bash
-   bun install
-   # or
-   npm install
-   ```
+```bash
+git clone https://github.com/141stfighterwing-collab/personal-blog.git
+cd personal-blog
+bun install
+```
 
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   ```
-   
-   The default `.env` is pre-configured for Docker PostgreSQL.
+### 2. Environment Setup
 
-4. **Start PostgreSQL database** (Docker)
-   ```bash
-   docker-compose up -d
-   ```
-   
-   This starts:
-   - **PostgreSQL** on port `5432`
-   - **Adminer** (DB UI) on port `8080`
+```bash
+cp .env.example .env
+```
 
-5. **Run database migrations**
-   ```bash
-   bun run db:push
-   # or
-   npx prisma db push
-   ```
+For SQLite (development):
+```env
+DATABASE_URL="file:./db/custom.db"
+```
 
-6. **Seed the database** (creates sample data)
-   ```bash
-   curl http://localhost:3000/api/seed
-   ```
+For PostgreSQL (production):
+```env
+DATABASE_URL="postgresql://bloguser:blogpass@localhost:5432/blogdb?schema=public"
+DIRECT_DATABASE_URL="postgresql://bloguser:blogpass@localhost:5432/blogdb?schema=public"
+```
 
-7. **Start the development server**
-   ```bash
-   bun run dev
-   # or
-   npm run dev
-   ```
+### 3. Database Setup
 
-8. **Open in browser**
-   - **App**: http://localhost:3000
-   - **Database UI**: http://localhost:8080
+**SQLite:**
+```bash
+bun run db:push
+```
+
+**PostgreSQL with Docker:**
+```bash
+docker-compose up -d
+bun run db:push
+```
+
+### 4. Seed Database
+
+```bash
+curl http://localhost:3000/api/seed
+```
+
+### 5. Start Development Server
+
+```bash
+bun run dev
+```
+
+Open http://localhost:3000
 
 ---
 
 ## 🗄️ Database Options
 
-### 🏆 PostgreSQL (Recommended - Included)
+### PostgreSQL (Production Recommended)
 
-This project uses **PostgreSQL** as the primary database. It's the best choice for:
-- ✅ Production-ready performance
-- ✅ Full Prisma support
-- ✅ JSON/JSONB queries
-- ✅ Full-text search
-- ✅ Concurrent connections
-
-**Start with Docker:**
+Start with Docker:
 ```bash
 docker-compose up -d
 ```
@@ -277,37 +289,23 @@ docker-compose up -d
 | [Supabase](https://supabase.com) | 500MB | Production apps with auth |
 | [Neon](https://neon.tech) | 3GB | Serverless, scaling to zero |
 | [Railway](https://railway.app) | 1GB | Quick deployment |
-| [PlanetScale](https://planetscale.com) | 1 row | MySQL-compatible |
-
-See [DATABASE.md](./DATABASE.md) for detailed setup instructions.
 
 ### SQLite (Development Only)
 
-For quick local testing without Docker:
+For quick local testing:
 ```env
 DATABASE_URL="file:./db/custom.db"
 ```
-Then run `bun run db:push`. **Not recommended for production.**
 
 ---
 
-## 🔐 Authentication & Roles
+## 🔐 Authentication
 
 ### Default Users
 
-The system comes with pre-configured users for immediate access. **Credentials are stored in `credentials.txt` which is generated during setup.**
+Credentials are generated in `credentials.txt` during setup.
 
-> ⚠️ **IMPORTANT**: Delete `credentials.txt` immediately after changing the default passwords!
-
-**Quick Reference:**
-
-| Role | Permissions |
-|------|-------------|
-| **Admin** | Full access to all features |
-| **Reviewer** | Can view and edit content |
-| **User** | Read-only access |
-
-For complete credentials, check the `credentials.txt` file in your project directory.
+> ⚠️ **IMPORTANT**: Delete `credentials.txt` after changing default passwords!
 
 ### Role Permissions
 
@@ -315,83 +313,16 @@ For complete credentials, check the `credentials.txt` file in your project direc
 |------------|:-----:|:--------:|:----:|
 | View blog posts | ✅ | ✅ | ✅ |
 | View news ticker | ✅ | ✅ | ✅ |
-| View links | ✅ | ✅ | ✅ |
-| Create posts | ✅ | ✅ | ❌ |
-| Edit posts | ✅ | ✅ | ❌ |
+| Create/Edit posts | ✅ | ✅ | ❌ |
 | Delete posts | ✅ | ❌ | ❌ |
-| Manage news items | ✅ | ✅ | ❌ |
-| Manage links | ✅ | ✅ | ❌ |
-| Manage users | ✅ | ❌ | ❌ |
+| Manage pages | ✅ | ✅ | ❌ |
 | Access admin panel | ✅ | ❌ | ❌ |
 
-### Login
-
-Navigate to `/login` and enter your credentials to access role-specific features.
-
 ---
 
-## 📝 API Endpoints
+## 📰 RSS Feed Configuration
 
-### Authentication
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/login` | User login |
-| POST | `/api/auth/logout` | User logout |
-| GET | `/api/auth/session` | Get current session |
-
-### Blog Posts
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/api/posts` | Get all published posts | No |
-| POST | `/api/posts` | Create a new post | Reviewer+ |
-| PUT | `/api/posts/:id` | Update a post | Reviewer+ |
-| DELETE | `/api/posts/:id` | Delete a post | Admin |
-
-### News Items
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/api/news` | Get all active news | No |
-| POST | `/api/news` | Create news item | Reviewer+ |
-| PUT | `/api/news/:id` | Update news item | Reviewer+ |
-| DELETE | `/api/news/:id` | Delete news item | Admin |
-
-### External Links
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/api/links` | Get all links | No |
-| POST | `/api/links` | Create a link | Reviewer+ |
-| PUT | `/api/links/:id` | Update a link | Reviewer+ |
-| DELETE | `/api/links/:id` | Delete a link | Admin |
-
----
-
-## 📰 Live RSS News Feeds
-
-The news ticker now pulls **real-time news** from RSS feeds instead of hardcoded content!
-
-### RSS Sources
-
-| Category | Sources |
-|----------|---------|
-| 🤖 **AI** | TechCrunch AI, VentureBeat AI, OpenAI Blog, Google AI Blog |
-| 🌍 **Geopolitics** | BBC World, Reuters World, Al Jazeera |
-| 🛡️ **Cybersecurity** | BleepingComputer, The Record, Dark Reading, Krebs on Security |
-| ✨ **General** | Hacker News, Dev.to |
-
-### RSS API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/rss` | Get all RSS news items |
-| DELETE | `/api/rss` | Clear RSS cache |
-
-### Customize RSS Sources
-
-Edit `src/lib/rss/config.ts` to add/remove feeds:
+Edit `src/lib/rss/config.ts` to customize feeds:
 
 ```typescript
 export const RSS_FEED_SOURCES: RSSFeedSource[] = [
@@ -403,99 +334,90 @@ export const RSS_FEED_SOURCES: RSSFeedSource[] = [
     enabled: true,
     maxItems: 5,
   },
-  // Add your own feeds here...
+  // Add your own feeds...
 ]
 ```
 
-### RSS Features
-- ⏱️ **5-minute cache** - Reduces API calls
-- 🔄 **Auto-refresh** - Feeds update automatically
-- 🎯 **Manual refresh** - Click refresh button
-- 🛡️ **Graceful fallback** - Shows cached data if feeds fail
+### Default RSS Sources
+
+| Category | Sources |
+|----------|---------|
+| 🤖 **AI** | TechCrunch AI, VentureBeat AI, OpenAI Blog |
+| 🌍 **Geopolitics** | BBC World, Reuters World, Al Jazeera |
+| 🛡️ **Cybersecurity** | BleepingComputer, The Record, Krebs on Security |
+| ✨ **General** | Hacker News, Dev.to |
 
 ---
 
-## 🎨 Customization
+## 🏗️ Page Builder
 
-### Adding News Headlines
+### Block Types
 
-**Via API:**
-```bash
-curl -X POST http://localhost:3000/api/news \
-  -H "Content-Type: application/json" \
-  -d '{
-    "headline": "🚀 Your headline here",
-    "category": "ai",
-    "url": "https://optional-link.com"
-  }'
-```
+| Block | Description |
+|-------|-------------|
+| **Hero** | Full-width banner with title and background |
+| **Text** | Rich text paragraph with alignment options |
+| **Image** | Single image with alt text and caption |
+| **Gallery** | Multi-image grid layout |
+| **Video** | YouTube/Vimeo/TikTok embed |
+| **Quote** | Blockquote with author |
+| **Divider** | Horizontal separator |
+| **Columns** | Multi-column layout |
+| **CTA** | Call-to-action button |
+| **Code** | Syntax-highlighted code block |
+| **Embed** | Custom iframe embed |
 
-**Via Database:**
-Edit the seed file at `src/app/api/seed/route.ts` and run the seed endpoint.
+### Free Image Sources
 
-### Adding Blog Posts
+The page builder includes quick links to:
+- [Unsplash](https://unsplash.com) - Free high-quality photos
+- [Pexels](https://pexels.com) - Free stock photos
+- [Pixabay](https://pixabay.com) - Free images & videos
+- [Burst](https://burst.shopify.com) - Shopify free photos
+- [StockSnap](https://stocksnap.io) - CC0 photos
 
-**Via API:**
-```bash
-curl -X POST http://localhost:3000/api/posts \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "My New Post",
-    "slug": "my-new-post",
-    "content": "# Hello World\n\nThis is markdown content!",
-    "excerpt": "A brief description",
-    "published": true
-  }'
-```
+---
 
-### Changing News Ticker Speed
+## 📡 API Endpoints
 
-Edit `src/components/NewsMarquee.tsx`:
-```typescript
-const speedOptions = [
-  { label: 'Slow', value: 60 },    // 60 seconds per loop
-  { label: 'Normal', value: 35 },  // 35 seconds per loop
-  { label: 'Fast', value: 20 },    // 20 seconds per loop
-]
-```
+### Authentication
 
-### Modifying Role Permissions
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/login` | User login |
+| POST | `/api/auth/logout` | User logout |
+| GET | `/api/auth/session` | Get current session |
 
-Edit `src/lib/permissions.ts` to customize what each role can access.
+### Blog Posts
+
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| GET | `/api/posts` | Get all published posts | No |
+| POST | `/api/posts` | Create a new post | Reviewer+ |
+| PUT | `/api/posts/:id` | Update a post | Reviewer+ |
+| DELETE | `/api/posts/:id` | Delete a post | Admin |
+
+### Custom Pages
+
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| GET | `/api/pages` | Get all pages | No |
+| POST | `/api/pages` | Create a page | Reviewer+ |
+| PUT | `/api/pages/:id` | Update a page | Reviewer+ |
+| DELETE | `/api/pages/:id` | Delete a page | Admin |
+
+### RSS News
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/rss` | Get parsed RSS items |
+| DELETE | `/api/rss` | Clear RSS cache |
 
 ---
 
 ## 🌙 Dark Mode
 
-The application supports dark mode out of the box using `next-themes`. The theme automatically follows the user's system preference, and can be toggled manually.
-
----
-
-## 📱 Responsive Design
-
-- **Mobile-first approach**
-- **Breakpoints**: sm (640px), md (768px), lg (1024px), xl (1280px)
-- **Touch-friendly** controls
-- **Adaptive layouts** for all screen sizes
-
----
-
-## 🔧 Environment Variables
-
-Copy `.env.example` to `.env` and configure:
-
-```env
-# PostgreSQL (Docker - Default)
-DATABASE_URL="postgresql://bloguser:blogpass@localhost:5432/blogdb?schema=public"
-DIRECT_DATABASE_URL="postgresql://bloguser:blogpass@localhost:5432/blogdb?schema=public"
-
-# Session Secret (generate a random 32+ char string)
-SESSION_SECRET="your-super-secret-key-change-in-production"
-
-# Production (Supabase example)
-# DATABASE_URL="postgresql://postgres.[PROJECT]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres?pgbouncer=true"
-# DIRECT_DATABASE_URL="postgresql://postgres.[PROJECT]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:5432/postgres"
-```
+Built-in dark mode support using `next-themes`. Automatically follows system preference or can be toggled manually.
 
 ---
 
@@ -503,8 +425,8 @@ SESSION_SECRET="your-super-secret-key-change-in-production"
 
 ### Vercel (Recommended)
 
-1. Push your code to GitHub
-2. Connect your repo to [Vercel](https://vercel.com)
+1. Push to GitHub
+2. Connect repo to [Vercel](https://vercel.com)
 3. Add environment variables
 4. Deploy!
 
@@ -522,7 +444,7 @@ EXPOSE 3000
 CMD ["npm", "start"]
 ```
 
-### Manual Deployment
+### Manual
 
 ```bash
 bun run build
@@ -534,16 +456,16 @@ bun run start
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
 ---
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
@@ -561,3 +483,4 @@ This project is open source and available under the [MIT License](LICENSE).
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS
 - [Prisma](https://www.prisma.io/) - Database ORM
 - [Lucide](https://lucide.dev/) - Beautiful icons
+- [Playwright](https://playwright.dev/) - Browser automation
