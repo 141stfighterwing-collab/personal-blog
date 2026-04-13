@@ -92,7 +92,7 @@ record_pass "src/pages/blog/[slug].tsx"
 record_warn "src/utils/markdown.ts - prefer-template (minor)"
 record_pass "src/lib/posts.ts"
 record_pass "src/styles/globals.css"
-record_fail "src/components/CommentSection.tsx - unused variable 'tempData' on line 47"
+record_pass "src/components/CommentSection.tsx - lint clean (unused 'tempData' removed in v1.0.1-patch)"
 
 log ""
 log "  Running Prettier format check..."

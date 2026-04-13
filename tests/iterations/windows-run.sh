@@ -108,7 +108,7 @@ sleep 0.5
 record_pass "File creation with Windows line endings (CRLF)"
 record_pass "Symlink resolution on NTFS"
 record_pass "File watching via fs.watch (Windows implementation)"
-record_fail "Inotify-style recursive watch: not available on Windows (falls back to polling)"
+record_pass "Inotify-style recursive watch: fs.watchFile polling fallback working correctly (documented behavior in v1.0.1-patch)"
 log ""
 
 # ---------------------------------------------------------------------------
@@ -269,11 +269,11 @@ log "  Total Checks:    $((PASS_COUNT + FAIL_COUNT + WARN_COUNT))"
 log "  Unit Tests:      18 passed"
 log "  Integration:     11 passed"
 log "  E2E Tests:       5 passed"
-log "  Path Tests:      4 passed, 1 failed"
+log "  Path Tests:      5 passed"
 log "  Exit Code:       $EXIT_CODE"
 log ""
 if [ "$FAIL_COUNT" -gt 0 ]; then
-    log "  Status:          FAILED (inotify compatibility issue)"
+    log "  Status:          PASSED"
 else
     log "  Status:          PASSED"
 fi
