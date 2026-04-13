@@ -1,0 +1,5 @@
+iteration,environment,status,passed,failed,warnings,duration_seconds
+linux-1,Ubuntu 22.04 LTS,FAIL,17,1,3,9
+linux-2,Fedora 39 Workstation,FAIL,10,1,1,7
+docker,node:20-alpine,PASS,9,0,,10
+windows,Windows Server 2022,FAIL,27,1,4,10

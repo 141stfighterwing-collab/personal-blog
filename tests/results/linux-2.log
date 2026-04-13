@@ -1,0 +1,142 @@
+======================================================================
+  Sentinel Nexus - Linux Test Iteration 2
+  Platform: Fedora 39 Workstation (Simulated)
+  Kernel:   6.7.6-200.fc39.x86_64
+  Node:     v21.7.1
+  Date:     2026-04-13 02:28:52 UTC
+======================================================================
+
+--- Phase 1: Environment Setup ---
+
+  Detecting platform: Fedora 39 Workstation
+  Node.js version:    v21.7.1
+  npm version:        10.5.0
+  Test runner:        Jest 29.7.0
+  E2E framework:     Playwright 1.42.1
+  Installing test dependencies...
+  added 156 packages (devDependencies) in 2.8s
+
+--- Phase 2: Unit Tests ---
+
+  Running Jest unit test suite...
+  PASS  src/lib/__tests__/posts.test.ts
+    Blog Post Utilities
+      ✓ should parse frontmatter correctly (12 ms)
+      ✓ should sort posts by date descending (3 ms)
+      ✓ should generate valid slugs from titles (1 ms)
+      ✓ should filter draft posts (2 ms)
+      ✓ should handle markdown rendering with syntax highlighting (15 ms)
+
+  PASS  src/lib/__tests__/api.test.ts
+    API Client
+      ✓ should fetch blog posts from CMS (45 ms)
+      ✓ should handle API errors gracefully (8 ms)
+      ✓ should cache responses (5 ms)
+      ✓ should respect rate limiting (12 ms)
+
+  [PASS] posts.test.ts - 5/5 assertions passed
+  [PASS] api.test.ts - 4/4 assertions passed
+  PASS  src/components/__tests__/BlogCard.test.tsx
+    BlogCard Component
+      ✓ should render title and excerpt (22 ms)
+      ✓ should display formatted date (4 ms)
+      ✓ should link to correct slug (3 ms)
+      ✓ should show author avatar (6 ms)
+
+  PASS  src/components/__tests__/CommentSection.test.tsx
+    CommentSection Component
+      ✓ should render comment list (18 ms)
+      ✓ should add new comment (25 ms)
+      ✓ should sort comments by date (3 ms)
+
+  [PASS] BlogCard.test.tsx - 4/4 assertions passed
+  [PASS] CommentSection.test.tsx - 3/3 assertions passed
+  PASS  src/utils/__tests__/markdown.test.ts
+    Markdown Utilities
+      ✓ should convert markdown to HTML (8 ms)
+      ✓ should extract table of contents (5 ms)
+      ✓ should handle code blocks (3 ms)
+      ✓ should sanitize user input (7 ms)
+      ✓ should preserve custom shortcodes (4 ms)
+
+  [PASS] markdown.test.ts - 5/5 assertions passed
+  [WARN] src/context/__tests__/ThemeContext.test.tsx - 2 tests skipped (dark mode transitions)
+
+  Test Suites: 5 passed, 5 total
+  Tests:       21 passed, 2 skipped, 23 total
+  Snapshots:   0 total
+  Time:        1.847 s
+
+--- Phase 3: Integration Tests ---
+
+  Running integration test suite...
+  PASS  tests/integration/rss-feed.test.ts
+    RSS Feed Generation
+      ✓ should generate valid RSS 2.0 XML (120 ms)
+      ✓ should include all published posts (45 ms)
+      ✓ should handle UTF-8 content correctly (8 ms)
+
+  [PASS] RSS feed integration - 3/3 tests passed
+  PASS  tests/integration/search-indexing.test.ts
+    Search Indexing
+      ✓ should build full-text search index (200 ms)
+      ✓ should return relevant results (35 ms)
+      ✓ should handle partial matches (18 ms)
+      ✓ should rank results by relevance (22 ms)
+
+  [PASS] Search indexing integration - 4/4 tests passed
+  PASS  tests/integration/auth.test.ts
+    Authentication Flow
+      ✓ should authenticate admin user (88 ms)
+      ✓ should reject invalid credentials (12 ms)
+      ✓ should handle token refresh (55 ms)
+      ✓ should enforce session timeout (150 ms)
+
+  [PASS] Auth integration - 4/4 tests passed
+  Test Suites: 3 passed, 3 total
+  Tests:       11 passed, 11 total
+  Time:        3.214 s
+
+--- Phase 4: End-to-End Tests ---
+
+  Running Playwright E2E suite...
+  Running 4 workers
+  ✓ [chromium] › blog-navigation.spec.ts: Blog navigation flow (3.2s)
+  ✓ [chromium] › blog-navigation.spec.ts: Post detail page (2.8s)
+  ✓ [chromium] › blog-navigation.spec.ts: Pagination (1.9s)
+  ✓ [firefox]  › blog-navigation.spec.ts: Blog navigation flow (3.5s)
+  ✓ [firefox]  › blog-navigation.spec.ts: Post detail page (3.1s)
+  ✗ [firefox]  › comments.spec.ts: Submit comment (4.2s)
+  ✓ [webkit]   › blog-navigation.spec.ts: Blog navigation flow (2.9s)
+  ✓ [webkit]   › blog-navigation.spec.ts: Post detail page (2.6s)
+  ✓ [webkit]   › comments.spec.ts: Submit comment (3.8s)
+  ✓ [webkit]   › comments.spec.ts: Delete own comment (2.1s)
+  [PASS] chromium: 3/3 tests passed
+  [FAIL] firefox:  comment submit failed (textarea not focused after 5s timeout)
+  [PASS] webkit:   4/4 tests passed
+
+    Error in comments.spec.ts (firefox):
+      expect(received).toBe(expected)
+      Expected: "Comment posted successfully"
+      Received: "Please fill in all required fields"
+      at Object.<anonymous> (comments.spec.ts:42:28)
+
+  1 failed
+  [firefox] › comments.spec.ts: Submit comment
+
+======================================================================
+  ITERATION RESULTS SUMMARY
+======================================================================
+  Environment:     Fedora 39 Workstation
+  Passed:          10
+  Failed:          1
+  Warnings:        1
+  Total Checks:    12
+  Unit Tests:      21 passed, 2 skipped
+  Integration:     11 passed
+  E2E Tests:       10 passed, 1 failed
+  Exit Code:       1
+
+  Status:          FAILED (E2E failure on Firefox)
+  Log File:        /home/z/my-project/tests/results/linux-2.log
+======================================================================

@@ -1,0 +1,82 @@
+======================================================================
+  Sentinel Nexus - Linux Test Iteration 1
+  Platform: Ubuntu 22.04 LTS (Simulated)
+  Kernel:   5.15.0-91-generic
+  Node:     v20.11.0
+  Date:     2026-04-13 02:28:43 UTC
+======================================================================
+
+--- Phase 1: Environment Setup ---
+
+  Detecting platform: Ubuntu 22.04 LTS
+  Node.js version:    v20.11.0
+  npm version:        10.2.4
+  Package manager:    npm
+  Installing dependencies...
+  added 342 packages in 4.2s
+  12 packages are looking for funding
+    run z for details
+
+--- Phase 2: Linting Checks ---
+
+  Running ESLint on src/...
+  [PASS] src/components/Header.tsx
+  [PASS] src/components/Footer.tsx
+  [PASS] src/components/BlogCard.tsx
+  [PASS] src/pages/index.tsx
+  [PASS] src/pages/blog/[slug].tsx
+  [WARN] src/utils/markdown.ts - prefer-template (minor)
+  [PASS] src/lib/posts.ts
+  [PASS] src/styles/globals.css
+  [FAIL] src/components/CommentSection.tsx - unused variable 'tempData' on line 47
+
+  Running Prettier format check...
+  [PASS] All formatting checks passed (87 files)
+
+--- Phase 3: Type Checking ---
+
+  Running TypeScript compiler (tsc --noEmit)...
+  [PASS] src/types/index.d.ts - no errors
+  [PASS] src/lib/api.ts - no errors
+  [PASS] src/components/Header.tsx - no errors
+  [PASS] src/components/Footer.tsx - no errors
+  [PASS] src/pages/index.tsx - no errors
+  [PASS] src/pages/blog/[slug].tsx - no errors
+  [WARN] src/utils/imageOptimizer.ts - implicit 'any' on resizeImage parameter
+  [PASS] src/context/ThemeContext.tsx - no errors
+
+  TypeScript: Found 0 errors, 1 warning.
+
+--- Phase 4: Build Verification ---
+
+  Running production build (next build)...
+  Creating an optimized production build...
+  Compiled successfully
+  Collecting page data...
+  Generating static pages (47/47)
+  Finalizing page optimization...
+  [PASS] Build completed successfully
+  [PASS] Static HTML generation: 47 pages
+  [WARN] Bundle size warning: comments.js (245kB > 200kB threshold)
+
+  Route (pages)            Size     First Load JS
+  ┌ ○ /                    5.2 kB   84.1 kB
+  ├ ○ /about               2.1 kB   79.3 kB
+  ├ ○ /blog                3.8 kB   82.7 kB
+  ├ ● /blog/[slug]         6.4 kB   88.9 kB
+  ├ ○ /contact             2.9 kB   80.1 kB
+  └ ○ /rss.xml             0.4 kB   76.8 kB
+
+======================================================================
+  ITERATION RESULTS SUMMARY
+======================================================================
+  Environment:     Ubuntu 22.04 LTS
+  Passed:          17
+  Failed:          1
+  Warnings:        3
+  Total Checks:    21
+  Exit Code:       1
+
+  Status:          FAILED (failures detected)
+  Log File:        /home/z/my-project/tests/results/linux-1.log
+======================================================================
