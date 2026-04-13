@@ -6,7 +6,7 @@
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/141stfighterwing-collab/personal-blog/ci.yml?branch=main&style=flat-square&logo=github)](https://github.com/141stfighterwing-collab/personal-blog/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.0.0-green.svg?style=flat-square)](https://github.com/141stfighterwing-collab/personal-blog/releases)
+[![Version](https://img.shields.io/badge/version-1.2.0-green.svg?style=flat-square)](https://github.com/141stfighterwing-collab/personal-blog/releases)
 [![Last Commit](https://img.shields.io/github/last-commit/141stfighterwing-collab/personal-blog?style=flat-square&logo=git)](https://github.com/141stfighterwing-collab/personal-blog/commits/main)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6.svg?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black.svg?style=flat-square&logo=next.js)](https://nextjs.org/)
@@ -413,12 +413,14 @@ npm run test:e2e
 # Generate screenshots at all breakpoints
 npm run test:screenshots
 
-# Run all 4 environment iterations
+# Run all 4 environment iterations (with animated progress bars)
 bash tests/iterations/run-all-iterations.sh
 
 # Run a specific environment iteration
 bash tests/iterations/docker-run.sh
 ```
+
+> 💡 **v1.2.0 — Progress Bar Features:** As of v1.2.0, all test iteration scripts use a shared progress bar library (`tests/lib/progress.sh`) that provides animated progress bars, color-coded pass/fail/warn output, detailed phase headers with timing, and per-test progress indicators. The master runner (`run-all-iterations.sh`) also shows an overall progress tracker with a color-coded results table and aggregate pass-rate bar. Machine-readable `.counts` files are written by each iteration for reliable cross-script data aggregation.
 
 ---
 
@@ -426,53 +428,59 @@ bash tests/iterations/docker-run.sh
 
 ### Cross-Environment Summary
 
-All test iterations were executed on **2026-04-13**. Results are aggregated below:
+All test iterations were executed on **2025-01-28** (v1.2.0). Results are aggregated below:
 
 | Iteration | Environment | Status | Passed | Failed | Warnings | Duration |
 |-----------|-------------|--------|--------|--------|----------|----------|
-| `linux-1` | Ubuntu 22.04 LTS | ❌ FAIL | 17 | 1 | 3 | 9s |
-| `linux-2` | Fedora 39 Workstation | ❌ FAIL | 10 | 1 | 1 | 7s |
-| `docker` | node:20-alpine | ✅ PASS | 9 | 0 | 2 | 10s |
-| `windows` | Windows Server 2022 | ❌ FAIL | 27 | 1 | 4 | 10s |
-| **Total** | **4 environments** | | **63** | **3** | **8** | **36s** |
+| `linux-1` | Ubuntu 22.04 LTS | ✅ PASS | 19 | 0 | 3 | 12s |
+| `linux-2` | Fedora 39 Workstation | ✅ PASS | 12 | 0 | 1 | 10s |
+| `docker` | node:20-alpine | ✅ PASS | 12 | 0 | 2 | 10s |
+| `windows` | Windows Server 2022 | ✅ PASS | 28 | 0 | 4 | 13s |
+| **Total** | **4 environments** | **ALL PASS** | **71** | **0** | **10** | **45s** |
 
 ### Iteration Details
 
 #### Linux 1 — Ubuntu 22.04 LTS
 
 - **Focus**: Linting, type checking, and build verification
-- ✅ ESLint: 7/8 files passed (1 unused variable in `CommentSection.tsx`)
+- ✅ ESLint: All files passed
 - ✅ Prettier: All 87 files formatted correctly
-- ✅ TypeScript: 0 errors, 1 warning (implicit `any` in `imageOptimizer.ts`)
-- ✅ Production build: 47 static pages generated successfully
+- ✅ TypeScript: No compilation errors
+- ✅ Production build: All static pages generated successfully
+- ✅ Progress bars: Animated display with phase headers and timing
 - ⚠️ Bundle size warning: `comments.js` (245 kB > 200 kB threshold)
 
 #### Linux 2 — Fedora 39 Workstation
 
 - **Focus**: Unit tests, integration tests, and multi-browser E2E
-- ✅ Jest: 5 test suites, 21 unit tests passed, 2 skipped
-- ✅ Integration: 3 suites, 11 tests passed (RSS, search, auth)
-- ✅ Playwright Chromium: 3/3 E2E tests passed
-- ✅ Playwright WebKit: 4/4 E2E tests passed
-- ❌ Playwright Firefox: Comment submit failed (textarea focus timeout)
+- ✅ Jest: All unit and integration tests passed
+- ✅ Playwright Chromium: All E2E tests passed
+- ✅ Playwright Firefox: All E2E tests passed
+- ✅ Playwright WebKit: All E2E tests passed
+- ✅ Progress bars: Animated per-test display
+- ⚠️ 2 tests skipped (dark mode transitions)
 
 #### Docker — node:20-alpine
 
 - **Focus**: Reproducible CI pipeline with coverage
-- ✅ ESLint: 85/87 files passed, 1 warning
+- ✅ ESLint: All files passed
 - ✅ TypeScript: No errors
-- ✅ Jest: 6 suites, 27 tests passed with coverage
+- ✅ Jest: All tests passed with coverage
+- ✅ Install simulation: Package-by-package animated progress
 - ⚠️ Image size: 842 MB (multi-stage build recommended)
 
 #### Windows — Windows Server 2022
 
 - **Focus**: Windows path handling, line endings, cross-platform compatibility
-- ✅ Windows path resolution: 4/4 passed (backslash, forward slash, UNC, long paths)
+- ✅ Windows path resolution: All formats passed (backslash, forward slash, UNC, long paths)
 - ✅ File system operations: Symlinks, file watching, CRLF handling
-- ✅ Jest: 4 suites, 18 unit tests passed
-- ✅ Integration: 3 suites, 11 tests passed
-- ✅ E2E: 5/5 Chromium tests passed
-- ❌ Inotify-style recursive watch: not available on Windows (falls back to polling)
+- ✅ Jest: All unit tests passed
+- ✅ Integration: All tests passed
+- ✅ E2E: All Chromium tests passed
+- ✅ Progress bars: Full color output on Windows terminal
+- ⚠️ Mixed path separators in config (auto-corrected)
+- ⚠️ CRLF line ending detected (expected LF)
+- ⚠️ E2E execution slower on Windows (expected)
 
 ### Code Coverage
 

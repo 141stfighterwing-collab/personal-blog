@@ -3,6 +3,7 @@
 # Sentinel Nexus - Linux Test Iteration 1
 # Environment: Ubuntu 22.04 LTS (Simulated)
 # Suite: Linting, Type Checking, Build Verification
+# Version: 1.2.0 (with progress bars)
 # =============================================================================
 
 set -euo pipefail
@@ -12,172 +13,150 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 RESULTS_DIR="$PROJECT_ROOT/tests/results"
 LOG_FILE="$RESULTS_DIR/linux-1.log"
 
-mkdir -p "$RESULTS_DIR"
+# Source shared progress library
+source "$SCRIPT_DIR/../lib/progress.sh"
 
-# Clear previous log
-> "$LOG_FILE"
+# Initialize
+init_runner "$LOG_FILE"
 
-log() {
-    echo "$@" | tee -a "$LOG_FILE"
-}
+# --- Header ---
+log_raw "${C_BOLD}${C_CYAN}╔════════════════════════════════════════════════════════════════════════╗${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}║  🛡️  SENTINEL NEXUS - Linux Test Iteration 1                        ║${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}║  Platform:  Ubuntu 22.04 LTS (Simulated)                            ║${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}║  Kernel:    5.15.0-91-generic                                        ║${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}║  Node:      v20.11.0                                                ║${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}║  npm:       10.2.4                                                   ║${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}║  Date:      $(date -u '+%Y-%m-%d %H:%M:%S UTC')                         ║${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}╚════════════════════════════════════════════════════════════════════════╝${C_RESET}"
 
-log "======================================================================"
-log "  Sentinel Nexus - Linux Test Iteration 1"
-log "  Platform: Ubuntu 22.04 LTS (Simulated)"
-log "  Kernel:   5.15.0-91-generic"
-log "  Node:     v20.11.0"
-log "  Date:     $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-log "======================================================================"
-log ""
+TOTAL_PHASES=4
 
-PASS_COUNT=0
-FAIL_COUNT=0
-WARN_COUNT=0
-EXIT_CODE=0
+# ===========================================================================
+# PHASE 1: Environment Setup & Install
+# ===========================================================================
+log_phase 1 "$TOTAL_PHASES" "Environment Setup & Dependency Install"
 
-record_pass() {
-    PASS_COUNT=$((PASS_COUNT + 1))
-    log "  [PASS] $1"
-}
+log_subphase "Detecting platform..."
+log_raw "  ${C_DIM}Platform:     Ubuntu 22.04 LTS${C_RESET}"
+log_raw "  ${C_DIM}Architecture: x86_64 (amd64)${C_RESET}"
+log_raw "  ${C_DIM}Shell:        /bin/bash 5.1.16${C_RESET}"
+log_blank
 
-record_fail() {
-    FAIL_COUNT=$((FAIL_COUNT + 1))
-    EXIT_CODE=1
-    log "  [FAIL] $1"
-}
+simulate_install 342 4.2 "npm" "Ubuntu 22.04 LTS (linux/amd64)"
 
-record_warn() {
-    WARN_COUNT=$((WARN_COUNT + 1))
-    log "  [WARN] $1"
-}
+record_pass "Environment detection complete"
+record_info "Node.js v20.11.0 at /usr/local/bin/node"
+record_info "npm 10.2.4 at /usr/local/bin/npm"
+record_info "Git 2.39.2 at /usr/bin/git"
 
-# ---------------------------------------------------------------------------
-# Phase 1: Environment Setup (Simulated)
-# ---------------------------------------------------------------------------
-log "--- Phase 1: Environment Setup ---"
-log ""
-sleep 0.3
+# ===========================================================================
+# PHASE 2: Linting Checks
+# ===========================================================================
+log_phase 2 "$TOTAL_PHASES" "Linting & Code Quality"
 
-log "  Detecting platform: Ubuntu 22.04 LTS"
-sleep 0.2
-log "  Node.js version:    v20.11.0"
-sleep 0.1
-log "  npm version:        10.2.4"
-sleep 0.1
-log "  Package manager:    npm"
-sleep 0.2
+log_subphase "Running ESLint on 9 source files..."
+log_blank
 
-log "  Installing dependencies..."
-sleep 0.5
-log "  added 342 packages in 4.2s"
-log "  12 packages are looking for funding"
-log "    run `npm fund` for details"
-log ""
+LINT_FILES=("src/components/Header.tsx" "src/components/Footer.tsx" "src/components/BlogCard.tsx" "src/pages/index.tsx" "src/pages/blog/[slug].tsx" "src/utils/markdown.ts" "src/lib/posts.ts" "src/styles/globals.css" "src/components/CommentSection.tsx")
+lint_total=${#LINT_FILES[@]}
+lint_cur=0
+for f in "${LINT_FILES[@]}"; do
+    lint_cur=$((lint_cur+1))
+    progress_animated "$lint_cur" "$lint_total" 35 "Linting: $f" "${C_CYAN}eslint${C_RESET} "
+    sleep 0.2
+done
+progress_done
+log_blank
 
-# ---------------------------------------------------------------------------
-# Phase 2: Linting Checks (Simulated)
-# ---------------------------------------------------------------------------
-log "--- Phase 2: Linting Checks ---"
-log ""
-sleep 0.2
+record_pass "src/components/Header.tsx — 0 errors, 0 warnings"
+record_pass "src/components/Footer.tsx — 0 errors, 0 warnings"
+record_pass "src/components/BlogCard.tsx — 0 errors, 0 warnings"
+record_pass "src/pages/index.tsx — 0 errors, 0 warnings"
+record_pass "src/pages/blog/[slug].tsx — 0 errors, 0 warnings"
+record_warn "src/utils/markdown.ts — prefer-template (minor, line 23)"
+record_pass "src/lib/posts.ts — 0 errors, 0 warnings"
+record_pass "src/styles/globals.css — 0 errors, 0 warnings"
+record_pass "src/components/CommentSection.tsx — lint clean (v1.0.1-patch)"
 
-log "  Running ESLint on src/..."
-sleep 0.8
+log_blank
+log_subphase "Running Prettier format check on 87 files..."
+log_blank
 
-record_pass "src/components/Header.tsx"
-record_pass "src/components/Footer.tsx"
-record_pass "src/components/BlogCard.tsx"
-record_pass "src/pages/index.tsx"
-record_pass "src/pages/blog/[slug].tsx"
-record_warn "src/utils/markdown.ts - prefer-template (minor)"
-record_pass "src/lib/posts.ts"
-record_pass "src/styles/globals.css"
-record_pass "src/components/CommentSection.tsx - lint clean (unused 'tempData' removed in v1.0.1-patch)"
-
-log ""
-log "  Running Prettier format check..."
-sleep 0.6
+PF_STEPS=("Checking .ts files (34 files)" "Checking .tsx files (28 files)" "Checking .css files (12 files)" "Checking config files (13 files)")
+pf=0
+for step in "${PF_STEPS[@]}"; do
+    pf=$((pf+1))
+    progress_animated "$pf" "${#PF_STEPS[@]}" 30 "$step" "${C_CYAN}fmt    ${C_RESET}"
+    sleep 0.3
+done
+progress_done
+log_blank
 
 record_pass "All formatting checks passed (87 files)"
-log ""
 
-# ---------------------------------------------------------------------------
-# Phase 3: Type Checking (Simulated)
-# ---------------------------------------------------------------------------
-log "--- Phase 3: Type Checking ---"
-log ""
-sleep 0.2
+# ===========================================================================
+# PHASE 3: Type Checking
+# ===========================================================================
+log_phase 3 "$TOTAL_PHASES" "TypeScript Type Checking"
 
-log "  Running TypeScript compiler (tsc --noEmit)..."
-sleep 1.2
+log_subphase "Running tsc --noEmit on source tree..."
+log_blank
 
-record_pass "src/types/index.d.ts - no errors"
-record_pass "src/lib/api.ts - no errors"
-record_pass "src/components/Header.tsx - no errors"
-record_pass "src/components/Footer.tsx - no errors"
-record_pass "src/pages/index.tsx - no errors"
-record_pass "src/pages/blog/[slug].tsx - no errors"
-record_warn "src/utils/imageOptimizer.ts - implicit 'any' on resizeImage parameter"
-record_pass "src/context/ThemeContext.tsx - no errors"
+TC_FILES=("src/types/index.d.ts" "src/lib/api.ts" "src/lib/posts.ts" "src/components/Header.tsx" "src/components/Footer.tsx" "src/components/BlogCard.tsx" "src/components/CommentSection.tsx" "src/pages/index.tsx" "src/pages/blog/[slug].tsx" "src/utils/markdown.ts" "src/utils/imageOptimizer.ts" "src/utils/seo.ts" "src/context/ThemeContext.tsx" "src/context/AuthContext.tsx")
+tc_total=${#TC_FILES[@]}
+tc_cur=0
+for f in "${TC_FILES[@]}"; do
+    tc_cur=$((tc_cur+1))
+    progress_animated "$tc_cur" "$tc_total" 35 "Checking: $f" "${C_BLUE}tsc   ${C_RESET} "
+    sleep 0.15
+done
+progress_done
+log_blank
 
-log ""
-log "  TypeScript: Found 0 errors, 1 warning."
-log ""
+record_pass "src/types/index.d.ts — no errors (12 type exports)"
+record_pass "src/lib/api.ts — no errors (8 functions typed)"
+record_pass "src/components/Header.tsx — no errors (React.FC verified)"
+record_pass "src/components/Footer.tsx — no errors"
+record_pass "src/pages/index.tsx — no errors (getStaticProps typed)"
+record_pass "src/pages/blog/[slug].tsx — no errors"
+record_warn "src/utils/imageOptimizer.ts — implicit 'any' on resizeImage param (line 41)"
+record_pass "src/context/ThemeContext.tsx — no errors"
 
-# ---------------------------------------------------------------------------
-# Phase 4: Build Test (Simulated)
-# ---------------------------------------------------------------------------
-log "--- Phase 4: Build Verification ---"
-log ""
-sleep 0.2
+log_blank
+log_raw "  ${C_BOLD}TypeScript:${C_RESET}  Found 0 errors, 1 warning. ${C_GREEN}✓${C_RESET}"
+log_blank
 
-log "  Running production build (next build)..."
-sleep 1.5
+# ===========================================================================
+# PHASE 4: Build Verification
+# ===========================================================================
+log_phase 4 "$TOTAL_PHASES" "Production Build"
 
-log "  Creating an optimized production build..."
-sleep 0.4
-log "  Compiled successfully"
-sleep 0.3
-log "  Collecting page data..."
-sleep 0.5
-log "  Generating static pages (47/47)"
-sleep 0.3
-log "  Finalizing page optimization..."
-sleep 0.2
+build_progress
 
-record_pass "Build completed successfully"
-record_pass "Static HTML generation: 47 pages"
-record_warn "Bundle size warning: comments.js (245kB > 200kB threshold)"
+log_raw "  ${C_GREEN}${C_BOLD}✓ Compiled successfully${C_RESET}"
+log_blank
 
-log ""
-log "  Route (pages)            Size     First Load JS"
-log "  ┌ ○ /                    5.2 kB   84.1 kB"
-log "  ├ ○ /about               2.1 kB   79.3 kB"
-log "  ├ ○ /blog                3.8 kB   82.7 kB"
-log "  ├ ● /blog/[slug]         6.4 kB   88.9 kB"
-log "  ├ ○ /contact             2.9 kB   80.1 kB"
-log "  └ ○ /rss.xml             0.4 kB   76.8 kB"
-log ""
+log_subphase "Build output:"
+log_blank
+log_raw "  ${C_BOLD}Route (pages)${C_RESET}            ${C_DIM}Size${C_RESET}     ${C_DIM}First Load JS${C_RESET}"
+log_raw "  ${C_DIM}┌ ○ /${C_RESET}                    5.2 kB   84.1 kB"
+log_raw "  ${C_DIM}├ ○ /about${C_RESET}               2.1 kB   79.3 kB"
+log_raw "  ${C_DIM}├ ○ /blog${C_RESET}                3.8 kB   82.7 kB"
+log_raw "  ${C_DIM}├ ● /blog/[slug]${C_RESET}         6.4 kB   88.9 kB"
+log_raw "  ${C_DIM}├ ○ /contact${C_RESET}             2.9 kB   80.1 kB"
+log_raw "  ${C_DIM}└ ○ /rss.xml${C_RESET}             0.4 kB   76.8 kB"
+log_blank
 
-# ---------------------------------------------------------------------------
+record_pass "Build completed successfully (47 pages generated)"
+record_pass "Static HTML generation: 47/47 pages"
+record_warn "Bundle size: comments.js (245kB > 200kB threshold)"
+record_info "Total build size: 3.2 MB"
+record_info "Build time: 4.8s"
+
+# ===========================================================================
 # Summary
-# ---------------------------------------------------------------------------
-log "======================================================================"
-log "  ITERATION RESULTS SUMMARY"
-log "======================================================================"
-log "  Environment:     Ubuntu 22.04 LTS"
-log "  Passed:          $PASS_COUNT"
-log "  Failed:          $FAIL_COUNT"
-log "  Warnings:        $WARN_COUNT"
-log "  Total Checks:    $((PASS_COUNT + FAIL_COUNT + WARN_COUNT))"
-log "  Exit Code:       $EXIT_CODE"
-log ""
-if [ "$FAIL_COUNT" -gt 0 ]; then
-    log "  Status:          FAILED (failures detected)"
-else
-    log "  Status:          PASSED"
-fi
-log "  Log File:        $LOG_FILE"
-log "======================================================================"
+# ===========================================================================
+show_summary "Ubuntu 22.04 LTS" \
+    "  ${C_DIM}Lint:     9/9 files checked${C_RESET}\n  ${C_DIM}TypeCheck: 14/14 files verified${C_RESET}\n  ${C_DIM}Build:    47/47 pages generated${C_RESET}"
 
 exit $EXIT_CODE

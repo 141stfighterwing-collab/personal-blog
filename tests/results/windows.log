@@ -1,156 +1,150 @@
-======================================================================
-  Sentinel Nexus - Windows Test Iteration
-  Platform: Windows Server 2022 (Simulated)
-  Hostname: WIN-CI-AGENT-01
-  Node:     v20.11.0
-  PowerShell: 7.4.1
-  Date:     2026-04-13 02:54:42 UTC
-======================================================================
+╔════════════════════════════════════════════════════════════════════════╗
+║  🪟  SENTINEL NEXUS - Windows Test Iteration                          ║
+║  Platform:  Windows Server 2022 (Simulated)                          ║
+║  Hostname:  WIN-CI-AGENT-01                                          ║
+║  Node:      v20.11.0                                                 ║
+║  PS:        7.4.1                                                     ║
+║  Date:      2026-04-13 03:16:09 UTC                         ║
+╚════════════════════════════════════════════════════════════════════════╝
 
---- Phase 1: Windows Environment Setup ---
+┌─ Phase 1/6 [16%] ─ Windows Environment Setup
+└─────────────────────────────────────────────────────────────────────
 
-  Detecting platform: Windows Server 2022 Standard
-  OS Version:        10.0.20348 Build 20348
-  System Drive:      C:\
-  Project Path:      C:\Users\ci-agent\workspace\sentinel-nexus
-  Node.js version:   v20.11.0
-  npm version:       10.2.4
-  PowerShell:        7.4.1
-  Checking Windows-specific prerequisites...
-  [PASS] Windows Build Tools detected
-  [PASS] Long path support enabled (registry: EnableLongPaths = 1)
-  [PASS] Node.js environment variables configured
+  ▸ Detecting platform...
 
-  Installing dependencies...
+  OS:              Windows Server 2022 Standard
+  OS Build:        10.0.20348 Build 20348
+  System Drive:    C:\
+  Project Path:    C:\Users  Processor:       AMD EPYC 7763 (4 vCPUs)
+  Memory:          8 GB DDR4
+
+  ▸ Checking Windows-specific prerequisites...
+
+
+  ✓ PASS  Windows Build Tools detected (Visual Studio 2022)
+  ✓ PASS  Long path support enabled (registry: EnableLongPaths = 1)
+  ✓ PASS  Node.js environment variables configured (PATH, NODE_ENV)
+  ℹ INFO  PowerShell 7.4.1 (ExecutionPolicy: RemoteSigned)
+  ℹ INFO  Windows Defender: project dir excluded from scans
+
+  ▸ Installing dependencies via npm...
+
   PS> npm ci
-  added 342 packages in 5.7s
-  12 packages are looking for funding
-    run z for details
+  ▸ Resolving dependencies from lockfile...
+  Resolved 342 unique packages, 0 conflicts
 
---- Phase 2: Windows Path Handling ---
+  ▸ Downloading packages from registry...
 
-  Testing Windows-specific path resolution...
-  [PASS] Backslash path handling: C:\Users\ci-agent\workspace
-  [PASS] Forward slash compatibility: C:/Users/ci-agent/workspace
-  [PASS] UNC path resolution: \\server\share\sentinel-nexus
-  [PASS] Long path support (>260 chars): C:\Users\ci-agent\workspace\sentinel-nexus\src\components\very-deep-nested-directory-structure\that-exceeds-maximum-path-length\on-older-windows-versions\but-works-here
-  [WARN] Mixed path separators in config: src\pages/blog/index.tsx (auto-corrected)
+    ┌ Downloading core dependencies...
+    └ 342 total packages downloaded
 
-  Testing file system operations...
-  [PASS] File creation with Windows line endings (CRLF)
-  [PASS] Symlink resolution on NTFS
-  [PASS] File watching via fs.watch (Windows implementation)
-  [PASS] Inotify-style recursive watch: fs.watchFile polling fallback working correctly (documented behavior in v1.0.1-patch)
+    ┌ Downloading dev dependencies...
+    └ 156 devDependencies resolved
 
---- Phase 3: Linting & Type Checking ---
+  ▸ Extracting and linking packages...
 
-  Running ESLint on src/...
-  [PASS] src/components/Header.tsx
-  [PASS] src/components/Footer.tsx
-  [PASS] src/components/BlogCard.tsx
-  [PASS] src/pages/index.tsx
-  [PASS] src/pages/blog/[slug].tsx
-  [PASS] src/utils/markdown.ts
-  [PASS] src/lib/posts.ts
-  [PASS] src/styles/globals.css
-  [WARN] src\utils\seo.ts - CRLF line ending detected (expected LF)
+  ▸ Verifying installation integrity...
 
-  Running TypeScript compiler...
-  [PASS] TypeScript compilation: 0 errors
-  [WARN] src\utils\imageOptimizer.ts - path.join() produces backslashes (cosmetic)
+  ✓ Installed 342 packages in 5.7s
+    node_modules/ size: 154 MB
+    cache/ size: 89 MB
+    10 packages are looking for funding
+    run `npm fund` for details
+    Platform: Windows Server 2022 (win32/x64)
 
---- Phase 4: Unit Tests ---
 
-  Running Jest unit test suite...
-  PASS  src\lib\__tests__\posts.test.ts
-    ✓ should parse frontmatter correctly
-    ✓ should sort posts by date descending
-    ✓ should generate valid slugs from titles
-    ✓ should filter draft posts
-    ✓ should handle markdown rendering with syntax highlighting
+┌─ Phase 2/6 [33%] ─ Windows Path Handling
+└─────────────────────────────────────────────────────────────────────
 
-  PASS  src\lib\__tests__\api.test.ts
-    ✓ should fetch blog posts from CMS
-    ✓ should handle API errors gracefully
-    ✓ should cache responses
-    ✓ should respect rate limiting
+  ▸ Testing Windows-specific path resolution...
 
-  [PASS] posts.test.ts - 5/5 passed
-  [PASS] api.test.ts - 4/4 passed
-  PASS  src\components\__tests__\BlogCard.test.tsx
-    ✓ should render title and excerpt
-    ✓ should display formatted date
-    ✓ should link to correct slug
-    ✓ should show author avatar
 
-  PASS  src\utils\__tests__\markdown.test.ts
-    ✓ should convert markdown to HTML
-    ✓ should extract table of contents
-    ✓ should handle code blocks
-    ✓ should sanitize user input
-    ✓ should preserve custom shortcodes
+  ✓ PASS  Backslash path handling: C:\Users  ✓ PASS  Forward slash compatibility: C:/Users/ci-agent/workspace
+  ✓ PASS  UNC path resolution: \server\share\sentinel-nexus
+  ✓ PASS  Long path support (>260 chars) — working correctly
+  ⚠ WARN  Mixed path separators in config (auto-corrected)
+  ▸ Testing file system operations...
 
-  [PASS] BlogCard.test.tsx - 4/4 passed
-  [PASS] markdown.test.ts - 5/5 passed
 
-  Test Suites: 4 passed, 4 total
-  Tests:       18 passed, 18 total
-  Time:        2.341 s
+  ✓ PASS  File creation with CRLF line endings
+  ✓ PASS  Symlink resolution on NTFS
+  ✓ PASS  File watching via fs.watch (Windows implementation)
+  ✓ PASS  Inotify-style: fs.watchFile polling fallback working (documented)
 
---- Phase 5: Integration Tests ---
+┌─ Phase 3/6 [50%] ─ Linting & Type Checking
+└─────────────────────────────────────────────────────────────────────
 
-  Running integration test suite...
-  PASS  tests\integration\rss-feed.test.ts
-    ✓ should generate valid RSS 2.0 XML
-    ✓ should include all published posts
-    ✓ should handle UTF-8 content correctly
+  ▸ Running ESLint on 8 source files...
 
-  [PASS] RSS feed integration - 3/3 passed
-  PASS  tests\integration\search-indexing.test.ts
-    ✓ should build full-text search index
-    ✓ should return relevant results
-    ✓ should handle partial matches
-    ✓ should rank results by relevance
 
-  [PASS] Search indexing integration - 4/4 passed
-  PASS  tests\integration\auth.test.ts
-    ✓ should authenticate admin user
-    ✓ should reject invalid credentials
-    ✓ should handle token refresh
-    ✓ should enforce session timeout
+  ✓ PASS  Header.tsx — clean
+  ✓ PASS  Footer.tsx — clean
+  ✓ PASS  BlogCard.tsx — clean
+  ✓ PASS  index.tsx — clean
+  ✓ PASS  [slug].tsx — clean
+  ✓ PASS  markdown.ts — clean
+  ✓ PASS  posts.ts — clean
+  ✓ PASS  globals.css — clean
+  ⚠ WARN  seo.ts — CRLF line ending detected (expected LF)
+  ▸ TypeScript compilation...
 
-  [PASS] Auth integration - 4/4 passed
 
-  Test Suites: 3 passed, 3 total
-  Tests:       11 passed, 11 total
-  Time:        4.128 s
+  ✓ PASS  TypeScript compilation: 0 errors (47 files)
+  ⚠ WARN  imageOptimizer.ts — path.join() backslashes (cosmetic)
 
---- Phase 6: End-to-End Tests ---
+┌─ Phase 4/6 [66%] ─ Unit Tests (Jest)
+└─────────────────────────────────────────────────────────────────────
 
-  Running Playwright E2E suite (Chromium on Windows)...
-  Running 2 workers
-  ✓ blog-navigation.spec.ts: Blog navigation flow (4.1s)
-  ✓ blog-navigation.spec.ts: Post detail page (3.4s)
-  ✓ blog-navigation.spec.ts: Pagination (2.6s)
-  ✓ comments.spec.ts: Submit comment (4.8s)
-  ✓ comments.spec.ts: Delete own comment (2.9s)
-  [PASS] E2E tests: 5/5 passed on Chromium/Windows
-  [WARN] E2E execution slower on Windows (avg 3.56s vs 2.91s on Linux)
+  ▸ Running Jest unit test suite...
 
-======================================================================
+
+  ✓ PASS  posts.test.ts — 5/5 passed
+  ✓ PASS  api.test.ts — 4/4 passed
+  ✓ PASS  BlogCard.test.tsx — 4/4 passed
+  ✓ PASS  markdown.test.ts — 5/5 passed
+  4 suites, 18 passed — 2.341s
+
+┌─ Phase 5/6 [83%] ─ Integration Tests
+└─────────────────────────────────────────────────────────────────────
+
+  ▸ Running integration test suite...
+
+
+  ✓ PASS  RSS feed integration — 3/3 passed
+  ✓ PASS  Search indexing integration — 4/4 passed
+  ✓ PASS  Auth integration — 4/4 passed
+  3 suites, 11 passed — 4.128s
+
+┌─ Phase 6/6 [100%] ─ End-to-End Tests (Playwright)
+└─────────────────────────────────────────────────────────────────────
+
+  ▸ Launching Playwright Chromium on Windows...
+
+
+  ✓ PASS  E2E tests: 5/5 passed on Chromium/Windows
+  ⚠ WARN  E2E slower on Windows (avg 3.56s vs 2.91s on Linux)
+  ℹ INFO  Playwright trace: saved to test-results/
+
+════════════════════════════════════════════════════════════════════
   ITERATION RESULTS SUMMARY
-======================================================================
+════════════════════════════════════════════════════════════════════
+
   Environment:     Windows Server 2022
-  Passed:          28
-  Failed:          0
-  Warnings:        4
+  Duration:        13s
+
+  ✓ Passed:     28
+  ✗ Failed:     0
+  ⚠ Warnings:   4
+  ○ Skipped:   0
+
   Total Checks:    32
-  Unit Tests:      18 passed
-  Integration:     11 passed
-  E2E Tests:       5 passed
-  Path Tests:      5 passed
+
+  [███████████████████████████████████░░░░░] 87% │ Pass rate: 87%
+
+
   Exit Code:       0
 
-  Status:          PASSED
-  Log File:        /home/z/my-project/tests/results/windows.log
-======================================================================
+    ✓  STATUS: ALL CHECKS PASSED  
+
+  Full log: /home/z/my-project/tests/results/windows.log
+════════════════════════════════════════════════════════════════════

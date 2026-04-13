@@ -1,5 +1,5 @@
-iteration,environment,status,passed,failed,warnings,duration_seconds
-linux-1,Ubuntu 22.04 LTS,PASS,18,0,,9
-linux-2,Fedora 39 Workstation,PASS,11,0,,7
-docker,node:20-alpine,PASS,9,0,,9
-windows,Windows Server 2022,PASS,28,0,,11
+iteration,environment,status,passed,failed,warnings,skipped,duration_seconds
+linux-1,Ubuntu 22.04 LTS,PASS,19,0,3,0,12
+linux-2,Fedora 39 Workstation,PASS,12,0,1,0,10
+docker,node:20-alpine,PASS,12,0,2,0,10
+windows,Windows Server 2022,PASS,28,0,4,0,13

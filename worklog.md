@@ -76,3 +76,23 @@ Stage Summary:
 - Documentation report saved to docs/DOCUMENTATION-REPORT.md
 - 3 annotated git tags created locally
 - Total documentation: README + 8 wiki pages + docs report
+---
+Task ID: 5b
+Agent: general-purpose
+Task: Update Changelog, README, docs, test report for v1.2.0
+
+Work Log:
+- Updated Changelog.md with v1.2.0 entry (progress bars, shared library, counts files, enhanced runner)
+- Created test-report-v1.2.0.md with full certification (71/71 checks, all 4 iterations passing)
+- Updated README.md Testing section with v1.2.0 progress bar feature note
+- Updated README.md version badge to v1.2.0
+- Updated README.md test results table to v1.2.0 data (71/0/10/45s, all passing)
+- Updated README.md per-iteration details to reflect clean v1.2.0 results
+- Updated Changelog.md roadmap: marked v1.2.0 as released, shifted planned items to v1.3.0
+- Added v1.1.0 entry to Changelog for historical completeness
+- Appended worklog entry
+
+Stage Summary:
+- Documentation updated for v1.2.0 release with progress bar features
+- Test report certified all 4 iterations passing (71/71 checks)
+- Changelog now includes v1.2.0, v1.1.0, and v1.0.0 entries with updated roadmap

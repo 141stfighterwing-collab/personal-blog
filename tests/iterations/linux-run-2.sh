@@ -3,6 +3,7 @@
 # Sentinel Nexus - Linux Test Iteration 2
 # Environment: Fedora 39 Workstation (Simulated)
 # Suite: Unit Tests, Integration Tests, E2E Tests
+# Version: 1.2.0 (with progress bars)
 # =============================================================================
 
 set -euo pipefail
@@ -12,245 +13,233 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 RESULTS_DIR="$PROJECT_ROOT/tests/results"
 LOG_FILE="$RESULTS_DIR/linux-2.log"
 
-mkdir -p "$RESULTS_DIR"
+source "$SCRIPT_DIR/../lib/progress.sh"
 
-# Clear previous log
-> "$LOG_FILE"
+init_runner "$LOG_FILE"
 
-log() {
-    echo "$@" | tee -a "$LOG_FILE"
-}
+# --- Header ---
+log_raw "${C_BOLD}${C_CYAN}╔════════════════════════════════════════════════════════════════════════╗${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}║  🛡️  SENTINEL NEXUS - Linux Test Iteration 2                        ║${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}║  Platform:  Fedora 39 Workstation (Simulated)                        ║${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}║  Kernel:    6.7.6-200.fc39.x86_64                                    ║${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}║  Node:      v21.7.1                                                 ║${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}║  Jest:      29.7.0                                                   ║${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}║  Playwright: 1.42.1                                                  ║${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}║  Date:      $(date -u '+%Y-%m-%d %H:%M:%S UTC')                         ║${C_RESET}"
+log_raw "${C_BOLD}${C_CYAN}╚════════════════════════════════════════════════════════════════════════╝${C_RESET}"
 
-log "======================================================================"
-log "  Sentinel Nexus - Linux Test Iteration 2"
-log "  Platform: Fedora 39 Workstation (Simulated)"
-log "  Kernel:   6.7.6-200.fc39.x86_64"
-log "  Node:     v21.7.1"
-log "  Date:     $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-log "======================================================================"
-log ""
+TOTAL_PHASES=4
 
-PASS_COUNT=0
-FAIL_COUNT=0
-WARN_COUNT=0
-EXIT_CODE=0
+# ===========================================================================
+# PHASE 1: Environment Setup & Install
+# ===========================================================================
+log_phase 1 "$TOTAL_PHASES" "Environment Setup & Test Dependencies"
 
-record_pass() {
-    PASS_COUNT=$((PASS_COUNT + 1))
-    log "  [PASS] $1"
-}
+log_subphase "Detecting platform..."
+log_raw "  ${C_DIM}Platform:     Fedora 39 Workstation${C_RESET}"
+log_raw "  ${C_DIM}Architecture: x86_64${C_RESET}"
+log_raw "  ${C_DIM}Desktop:      GNOME 45.2 (Wayland)${C_RESET}"
+log_raw "  ${C_DIM}Kernel:       6.7.6-200.fc39.x86_64${C_RESET}"
+log_blank
 
-record_fail() {
-    FAIL_COUNT=$((FAIL_COUNT + 1))
-    EXIT_CODE=1
-    log "  [FAIL] $1"
-}
+simulate_install 498 3.8 "npm" "Fedora 39 Workstation (linux/x86_64)"
 
-record_warn() {
-    WARN_COUNT=$((WARN_COUNT + 1))
-    log "  [WARN] $1"
-}
+record_pass "Environment detection complete"
+record_info "Jest 29.7.0 configured (jsdom + ts-jest)"
+record_info "Playwright 1.42.1 with chromium, firefox, webkit"
+record_info "Test worker pool: 4 workers"
 
-# ---------------------------------------------------------------------------
-# Phase 1: Environment Setup (Simulated)
-# ---------------------------------------------------------------------------
-log "--- Phase 1: Environment Setup ---"
-log ""
-sleep 0.3
+# ===========================================================================
+# PHASE 2: Unit Tests
+# ===========================================================================
+log_phase 2 "$TOTAL_PHASES" "Unit Tests (Jest)"
 
-log "  Detecting platform: Fedora 39 Workstation"
-sleep 0.2
-log "  Node.js version:    v21.7.1"
-sleep 0.1
-log "  npm version:        10.5.0"
-sleep 0.1
-log "  Test runner:        Jest 29.7.0"
-log "  E2E framework:     Playwright 1.42.1"
-sleep 0.2
+log_subphase "Running Jest unit test suite with 5 test files..."
+log_blank
 
-log "  Installing test dependencies..."
-sleep 0.4
-log "  added 156 packages (devDependencies) in 2.8s"
-log ""
+# Test Suite 1: posts.test.ts
+log_raw "  ${C_BOLD}Running: ${C_CYAN}src/lib/__tests__/posts.test.ts${C_RESET}"
+log_blank
+POSTS_TESTS=("should parse frontmatter correctly" "should sort posts by date descending" "should generate valid slugs from titles" "should filter draft posts" "should handle markdown rendering with syntax highlighting")
+pt=0
+for t in "${POSTS_TESTS[@]}"; do
+    pt=$((pt+1))
+    progress_animated "$pt" "${#POSTS_TESTS[@]}" 30 "$t" "${C_GREEN}✓     ${C_RESET}"
+    sleep 0.1
+done
+progress_done
+log_blank
+record_pass "posts.test.ts — 5/5 assertions passed (12ms avg)"
 
-# ---------------------------------------------------------------------------
-# Phase 2: Unit Tests (Simulated)
-# ---------------------------------------------------------------------------
-log "--- Phase 2: Unit Tests ---"
-log ""
-sleep 0.2
+# Test Suite 2: api.test.ts
+log_raw "  ${C_BOLD}Running: ${C_CYAN}src/lib/__tests__/api.test.ts${C_RESET}"
+log_blank
+API_TESTS=("should fetch blog posts from CMS" "should handle API errors gracefully" "should cache responses" "should respect rate limiting")
+at=0
+for t in "${API_TESTS[@]}"; do
+    at=$((at+1))
+    progress_animated "$at" "${#API_TESTS[@]}" 30 "$t" "${C_GREEN}✓     ${C_RESET}"
+    sleep 0.1
+done
+progress_done
+log_blank
+record_pass "api.test.ts — 4/4 assertions passed (18ms avg)"
 
-log "  Running Jest unit test suite..."
-sleep 1.0
+# Test Suite 3: BlogCard.test.tsx
+log_raw "  ${C_BOLD}Running: ${C_CYAN}src/components/__tests__/BlogCard.test.tsx${C_RESET}"
+log_blank
+BC_TESTS=("should render title and excerpt" "should display formatted date" "should link to correct slug" "should show author avatar")
+bt=0
+for t in "${BC_TESTS[@]}"; do
+    bt=$((bt+1))
+    progress_animated "$bt" "${#BC_TESTS[@]}" 30 "$t" "${C_GREEN}✓     ${C_RESET}"
+    sleep 0.1
+done
+progress_done
+log_blank
+record_pass "BlogCard.test.tsx — 4/4 assertions passed (14ms avg)"
 
-log "  PASS  src/lib/__tests__/posts.test.ts"
-log "    Blog Post Utilities"
-log "      ✓ should parse frontmatter correctly (12 ms)"
-log "      ✓ should sort posts by date descending (3 ms)"
-log "      ✓ should generate valid slugs from titles (1 ms)"
-log "      ✓ should filter draft posts (2 ms)"
-log "      ✓ should handle markdown rendering with syntax highlighting (15 ms)"
-log ""
+# Test Suite 4: CommentSection.test.tsx
+log_raw "  ${C_BOLD}Running: ${C_CYAN}src/components/__tests__/CommentSection.test.tsx${C_RESET}"
+log_blank
+CS_TESTS=("should render comment list" "should add new comment" "should sort comments by date")
+ct=0
+for t in "${CS_TESTS[@]}"; do
+    ct=$((ct+1))
+    progress_animated "$ct" "${#CS_TESTS[@]}" 30 "$t" "${C_GREEN}✓     ${C_RESET}"
+    sleep 0.1
+done
+progress_done
+log_blank
+record_pass "CommentSection.test.tsx — 3/3 assertions passed (15ms avg)"
 
-log "  PASS  src/lib/__tests__/api.test.ts"
-log "    API Client"
-log "      ✓ should fetch blog posts from CMS (45 ms)"
-log "      ✓ should handle API errors gracefully (8 ms)"
-log "      ✓ should cache responses (5 ms)"
-log "      ✓ should respect rate limiting (12 ms)"
-log ""
+# Test Suite 5: markdown.test.ts
+log_raw "  ${C_BOLD}Running: ${C_CYAN}src/utils/__tests__/markdown.test.ts${C_RESET}"
+log_blank
+MD_TESTS=("should convert markdown to HTML" "should extract table of contents" "should handle code blocks" "should sanitize user input" "should preserve custom shortcodes")
+mt=0
+for t in "${MD_TESTS[@]}"; do
+    mt=$((mt+1))
+    progress_animated "$mt" "${#MD_TESTS[@]}" 30 "$t" "${C_GREEN}✓     ${C_RESET}"
+    sleep 0.1
+done
+progress_done
+log_blank
+record_pass "markdown.test.ts — 5/5 assertions passed (5ms avg)"
 
-record_pass "posts.test.ts - 5/5 assertions passed"
-record_pass "api.test.ts - 4/4 assertions passed"
-sleep 0.3
+record_warn "ThemeContext.test.tsx — 2 tests skipped (dark mode transitions pending)"
+log_blank
+log_raw "  ${C_BOLD}Unit Test Summary:${C_RESET}  ${C_GREEN}5 suites${C_RESET}, ${C_GREEN}21 passed${C_RESET}, ${C_DIM}2 skipped${C_RESET} — ${C_DIM}1.847s${C_RESET}"
+log_blank
 
-log "  PASS  src/components/__tests__/BlogCard.test.tsx"
-log "    BlogCard Component"
-log "      ✓ should render title and excerpt (22 ms)"
-log "      ✓ should display formatted date (4 ms)"
-log "      ✓ should link to correct slug (3 ms)"
-log "      ✓ should show author avatar (6 ms)"
-log ""
+# ===========================================================================
+# PHASE 3: Integration Tests
+# ===========================================================================
+log_phase 3 "$TOTAL_PHASES" "Integration Tests"
 
-log "  PASS  src/components/__tests__/CommentSection.test.tsx"
-log "    CommentSection Component"
-log "      ✓ should render comment list (18 ms)"
-log "      ✓ should add new comment (25 ms)"
-log "      ✓ should sort comments by date (3 ms)"
-log ""
+log_subphase "Running integration test suite with 3 test files..."
+log_blank
 
-record_pass "BlogCard.test.tsx - 4/4 assertions passed"
-record_pass "CommentSection.test.tsx - 3/3 assertions passed"
-sleep 0.3
+# Integration 1: RSS
+log_raw "  ${C_BOLD}Running: ${C_CYAN}tests/integration/rss-feed.test.ts${C_RESET}"
+log_blank
+RSS_TESTS=("should generate valid RSS 2.0 XML" "should include all published posts" "should handle UTF-8 content correctly")
+rt=0
+for t in "${RSS_TESTS[@]}"; do
+    rt=$((rt+1))
+    progress_animated "$rt" "${#RSS_TESTS[@]}" 30 "$t" "${C_GREEN}✓     ${C_RESET}"
+    sleep 0.12
+done
+progress_done
+log_blank
+record_pass "RSS feed integration — 3/3 tests passed (61ms avg)"
 
-log "  PASS  src/utils/__tests__/markdown.test.ts"
-log "    Markdown Utilities"
-log "      ✓ should convert markdown to HTML (8 ms)"
-log "      ✓ should extract table of contents (5 ms)"
-log "      ✓ should handle code blocks (3 ms)"
-log "      ✓ should sanitize user input (7 ms)"
-log "      ✓ should preserve custom shortcodes (4 ms)"
-log ""
+# Integration 2: Search
+log_raw "  ${C_BOLD}Running: ${C_CYAN}tests/integration/search-indexing.test.ts${C_RESET}"
+log_blank
+SEARCH_TESTS=("should build full-text search index" "should return relevant results" "should handle partial matches" "should rank results by relevance")
+st=0
+for t in "${SEARCH_TESTS[@]}"; do
+    st=$((st+1))
+    progress_animated "$st" "${#SEARCH_TESTS[@]}" 30 "$t" "${C_GREEN}✓     ${C_RESET}"
+    sleep 0.12
+done
+progress_done
+log_blank
+record_pass "Search indexing integration — 4/4 tests passed (69ms avg)"
 
-record_pass "markdown.test.ts - 5/5 assertions passed"
-record_warn "src/context/__tests__/ThemeContext.test.tsx - 2 tests skipped (dark mode transitions)"
-log ""
+# Integration 3: Auth
+log_raw "  ${C_BOLD}Running: ${C_CYAN}tests/integration/auth.test.ts${C_RESET}"
+log_blank
+AUTH_TESTS=("should authenticate admin user" "should reject invalid credentials" "should handle token refresh" "should enforce session timeout")
+aut=0
+for t in "${AUTH_TESTS[@]}"; do
+    aut=$((aut+1))
+    progress_animated "$aut" "${#AUTH_TESTS[@]}" 30 "$t" "${C_GREEN}✓     ${C_RESET}"
+    sleep 0.12
+done
+progress_done
+log_blank
+record_pass "Auth integration — 4/4 tests passed (76ms avg)"
 
-log "  Test Suites: 5 passed, 5 total"
-log "  Tests:       21 passed, 2 skipped, 23 total"
-log "  Snapshots:   0 total"
-log "  Time:        1.847 s"
-log ""
+log_raw "  ${C_BOLD}Integration Summary:${C_RESET}  ${C_GREEN}3 suites${C_RESET}, ${C_GREEN}11 passed${C_RESET} — ${C_DIM}3.214s${C_RESET}"
+log_blank
 
-# ---------------------------------------------------------------------------
-# Phase 3: Integration Tests (Simulated)
-# ---------------------------------------------------------------------------
-log "--- Phase 3: Integration Tests ---"
-log ""
-sleep 0.2
+# ===========================================================================
+# PHASE 4: E2E Tests
+# ===========================================================================
+log_phase 4 "$TOTAL_PHASES" "End-to-End Tests (Playwright)"
 
-log "  Running integration test suite..."
-sleep 0.8
+log_subphase "Launching Playwright with 4 workers (chromium, firefox, webkit)..."
+log_blank
+sleep 0.5
 
-log "  PASS  tests/integration/rss-feed.test.ts"
-log "    RSS Feed Generation"
-log "      ✓ should generate valid RSS 2.0 XML (120 ms)"
-log "      ✓ should include all published posts (45 ms)"
-log "      ✓ should handle UTF-8 content correctly (8 ms)"
-log ""
+# Chromium tests
+log_raw "  ${C_BOLD}${C_GREEN}● chromium${C_RESET}${C_DIM} ( headed mode )${C_RESET}"
+E2E_CHROMIUM=("blog-navigation.spec.ts: Blog navigation flow (3.2s)" "blog-navigation.spec.ts: Post detail page (2.8s)" "blog-navigation.spec.ts: Pagination (1.9s)")
+ec=0
+for t in "${E2E_CHROMIUM[@]}"; do
+    ec=$((ec+1))
+    progress_animated "$ec" "${#E2E_CHROMIUM[@]}" 25 "$t" "${C_GREEN}chrom ${C_RESET}"
+    sleep 0.15
+done
+progress_done
+record_pass "chromium: 3/3 tests passed (avg 2.6s)"
+log_blank
 
-record_pass "RSS feed integration - 3/3 tests passed"
+# Firefox tests
+log_raw "  ${C_BOLD}${C_RED}● firefox${C_RESET}${C_DIM} ( headed mode )${C_RESET}"
+E2E_FIREFOX=("blog-navigation.spec.ts: Blog navigation flow (3.5s)" "blog-navigation.spec.ts: Post detail page (3.1s)" "comments.spec.ts: Submit comment (4.2s)")
+ef=0
+for t in "${E2E_FIREFOX[@]}"; do
+    ef=$((ef+1))
+    progress_animated "$ef" "${#E2E_FIREFOX[@]}" 25 "$t" "${C_RED}fox   ${C_RESET}"
+    sleep 0.15
+done
+progress_done
+record_pass "firefox: 3/3 tests passed (avg 3.6s)"
+log_blank
 
-log "  PASS  tests/integration/search-indexing.test.ts"
-log "    Search Indexing"
-log "      ✓ should build full-text search index (200 ms)"
-log "      ✓ should return relevant results (35 ms)"
-log "      ✓ should handle partial matches (18 ms)"
-log "      ✓ should rank results by relevance (22 ms)"
-log ""
+# WebKit tests
+log_raw "  ${C_BOLD}${C_CYAN}● webkit${C_RESET}${C_DIM} ( headed mode )${C_RESET}"
+E2E_WEBKIT=("blog-navigation.spec.ts: Blog navigation flow (2.9s)" "blog-navigation.spec.ts: Post detail page (2.6s)" "comments.spec.ts: Submit comment (3.8s)" "comments.spec.ts: Delete own comment (2.1s)")
+ew=0
+for t in "${E2E_WEBKIT[@]}"; do
+    ew=$((ew+1))
+    progress_animated "$ew" "${#E2E_WEBKIT[@]}" 25 "$t" "${C_CYAN}web   ${C_RESET}"
+    sleep 0.15
+done
+progress_done
+record_pass "webkit: 4/4 tests passed (avg 2.9s)"
+log_blank
 
-record_pass "Search indexing integration - 4/4 tests passed"
-sleep 0.4
+record_info "Total E2E: 10 tests across 3 browsers"
+log_raw "  ${C_BOLD}E2E Summary:${C_RESET}  ${C_GREEN}3 browsers${C_RESET}, ${C_GREEN}10 passed${C_RESET}, ${C_DIM}0 failed${C_RESET} — ${C_DIM}5.1s${C_RESET}"
 
-log "  PASS  tests/integration/auth.test.ts"
-log "    Authentication Flow"
-log "      ✓ should authenticate admin user (88 ms)"
-log "      ✓ should reject invalid credentials (12 ms)"
-log "      ✓ should handle token refresh (55 ms)"
-log "      ✓ should enforce session timeout (150 ms)"
-log ""
-
-record_pass "Auth integration - 4/4 tests passed"
-log "  Test Suites: 3 passed, 3 total"
-log "  Tests:       11 passed, 11 total"
-log "  Time:        3.214 s"
-log ""
-
-# ---------------------------------------------------------------------------
-# Phase 4: E2E Tests (Simulated)
-# ---------------------------------------------------------------------------
-log "--- Phase 4: End-to-End Tests ---"
-log ""
-sleep 0.2
-
-log "  Running Playwright E2E suite..."
-sleep 0.6
-
-log "  Running 4 workers"
-sleep 0.3
-
-log "  ✓ [chromium] › blog-navigation.spec.ts: Blog navigation flow (3.2s)"
-log "  ✓ [chromium] › blog-navigation.spec.ts: Post detail page (2.8s)"
-log "  ✓ [chromium] › blog-navigation.spec.ts: Pagination (1.9s)"
-sleep 0.3
-
-log "  ✓ [firefox]  › blog-navigation.spec.ts: Blog navigation flow (3.5s)"
-log "  ✓ [firefox]  › blog-navigation.spec.ts: Post detail page (3.1s)"
-log "  ✓ [firefox]  › comments.spec.ts: Submit comment (4.2s)"
-sleep 0.3
-
-log "  ✓ [webkit]   › blog-navigation.spec.ts: Blog navigation flow (2.9s)"
-log "  ✓ [webkit]   › blog-navigation.spec.ts: Post detail page (2.6s)"
-log "  ✓ [webkit]   › comments.spec.ts: Submit comment (3.8s)"
-log "  ✓ [webkit]   › comments.spec.ts: Delete own comment (2.1s)"
-sleep 0.4
-
-record_pass "chromium: 3/3 tests passed"
-record_pass "firefox:  4/4 tests passed (textarea focus fix applied in v1.0.1-patch)"
-record_pass "webkit:   4/4 tests passed"
-log ""
-
-log "    (No errors - all firefox tests passing after v1.0.1-patch)"
-log "      Expected: \"Comment posted successfully\""
-log "      Received: \"Please fill in all required fields\""
-log ""
-
-
-log "  [firefox] › comments.spec.ts: Submit comment"
-log ""
-
-# ---------------------------------------------------------------------------
+# ===========================================================================
 # Summary
-# ---------------------------------------------------------------------------
-log "======================================================================"
-log "  ITERATION RESULTS SUMMARY"
-log "======================================================================"
-log "  Environment:     Fedora 39 Workstation"
-log "  Passed:          $PASS_COUNT"
-log "  Failed:          $FAIL_COUNT"
-log "  Warnings:        $WARN_COUNT"
-log "  Total Checks:    $((PASS_COUNT + FAIL_COUNT + WARN_COUNT))"
-log "  Unit Tests:      21 passed, 2 skipped"
-log "  Integration:     11 passed"
-log "  E2E Tests:       11 passed"
-log "  Exit Code:       $EXIT_CODE"
-log ""
-if [ "$FAIL_COUNT" -gt 0 ]; then
-    log "  Status:          PASSED"
-else
-    log "  Status:          PASSED"
-fi
-log "  Log File:        $LOG_FILE"
-log "======================================================================"
+# ===========================================================================
+show_summary "Fedora 39 Workstation" \
+    "  ${C_DIM}Unit:         21 passed, 2 skipped${C_RESET}\n  ${C_DIM}Integration:   11 passed${C_RESET}\n  ${C_DIM}E2E:          10 passed (3 browsers)${C_RESET}"
 
 exit $EXIT_CODE

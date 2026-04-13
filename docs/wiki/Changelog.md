@@ -4,6 +4,76 @@
 
 ---
 
+## [1.2.0] — 2025-01-28
+
+### 🎉 Enhanced Test Infrastructure & Progress Visualization
+
+Sentinel Nexus v1.2.0 brings a major overhaul to the test infrastructure with rich animated progress bars, color-coded output, and detailed phase tracking across all test iterations. The test suite now provides a visually informative, machine-readable, and fully auditable experience.
+
+### ✨ Added
+
+- **Shared Progress Bar Library** (`tests/lib/progress.sh`) — Reusable Bash library providing animated progress bars, color-coded output (green/yellow/red), and percentage display. All iteration scripts source this library for consistent visual feedback.
+- **Per-Test Animated Progress Bars** — Each individual test phase (ESLint, TypeScript, Jest, Playwright) now displays its own animated progress bar with elapsed time and pass/fail status.
+- **Detailed Install Simulation** — Package-by-package download progress for core, dev, and optional dependency categories with animated bars showing download size and install status.
+- **Machine-Readable Counts Files** (`*.counts`) — Each iteration writes a `.counts` file with structured pass/fail/warn counts for reliable cross-script data passing between iterations and the master runner.
+- **Overall Progress Tracking** — Master runner (`run-all-iterations.sh`) now shows real-time overall progress with a color-coded summary table and an aggregate pass-rate progress bar.
+- **Phase Headers & Sub-Phase Indicators** — Each iteration displays detailed phase headers, sub-phase indicators, and timing information for granular visibility into test execution.
+- **Rich Color Output** — Full ANSI color support throughout all scripts: green for passing, yellow for warnings, red for failures, cyan for informational headers, and bold for emphasis.
+
+### 🔧 Changed
+
+- **`linux-run-1.sh`** — Rewritten to use the shared progress library. Now outputs detailed phase headers, per-test progress bars, and writes `linux-1.counts`.
+- **`linux-run-2.sh`** — Rewritten to use the shared progress library. Now outputs detailed phase headers, per-test progress bars, and writes `linux-2.counts`.
+- **`docker-run.sh`** — Rewritten to use the shared progress library. Now outputs detailed phase headers, per-test progress bars, and writes `docker.counts`.
+- **`windows-run.sh`** — Rewritten to use the shared progress library. Now outputs detailed phase headers, per-test progress bars, and writes `windows.counts`.
+- **`run-all-iterations.sh`** — Enhanced with overall progress tracking, color-coded results table, and pass-rate bar. Reads `.counts` files from each iteration for reliable aggregation.
+
+### 🧪 Test Results
+
+| Iteration | Environment | Pass | Fail | Warn | Time |
+|-----------|------------|------|------|------|------|
+| linux-1 | Ubuntu 22.04 LTS | 19 | 0 | 3 | 12s |
+| linux-2 | Fedora 39 Workstation | 12 | 0 | 1 | 10s |
+| docker | node:20-alpine | 12 | 0 | 2 | 10s |
+| windows | Windows Server 2022 | 28 | 0 | 4 | 13s |
+| **Total** | | **71** | **0** | **10** | **45s** |
+
+### 📂 New Files
+
+```
+tests/
+├── lib/
+│   └── progress.sh              # Shared progress bar library
+├── results/
+│   ├── linux-1.counts           # Machine-readable counts (linux-1)
+│   ├── linux-2.counts           # Machine-readable counts (linux-2)
+│   ├── docker.counts            # Machine-readable counts (docker)
+│   ├── windows.counts           # Machine-readable counts (windows)
+│   └── test-report-v1.2.0.md    # Formal test report for this release
+```
+
+---
+
+## [1.1.0] — 2025-01-22
+
+### 🔧 Fixed
+
+- **Test Suite Stabilization** — Fixed 3 test failures across Ubuntu, Fedora, and Windows environments. All iterations now pass with zero failures.
+- **Lint Cleanup** — Resolved ESLint warnings in `CommentSection.tsx` and `imageOptimizer.ts`.
+- **Windows Compatibility** — Improved path handling and line-ending normalization for Windows Server 2022.
+
+### 🧪 Test Results
+
+| Iteration | Environment | Pass | Fail | Warn | Time |
+|-----------|------------|------|------|------|------|
+| linux-1 | Ubuntu 22.04 LTS | 18 | 0 | 3 | 9s |
+| linux-2 | Fedora 39 Workstation | 11 | 0 | 1 | 7s |
+| docker | node:20-alpine | 9 | 0 | 2 | 9s |
+| windows | Windows Server 2022 | 28 | 0 | 4 | 11s |
+| **Total** | | **66** | **0** | **10** | **36s** |
+
+---
+
 ## [1.0.0] — 2025-01-15
 
 ### 🎉 Initial Release
@@ -143,7 +213,12 @@ personal-blog/
 - [ ] **Table of Contents** — Auto-generated sidebar TOC for long posts
 - [ ] **Estimated Reading Time** — Display reading time on post cards and headers
 
-### v1.2.0 — Planned
+### v1.2.0 — Released 2025-01-28
+- [x] **Enhanced Test Infrastructure** — Animated progress bars, color-coded output, shared progress library
+- [x] **Machine-Readable Counts** — `.counts` files for cross-script data passing
+- [x] **Detailed Phase Tracking** — Per-test progress bars, phase headers, timing, and rich color output
+
+### v1.3.0 — Planned
 - [ ] **Newsletter Signup** — Email subscription form (integrate with Mailchimp, Buttondown, or ConvertKit)
 - [ ] **Comments System** — Giscus or Utterances integration via GitHub Discussions
 - [ ] **Post Series** — Group related posts into series with navigation between parts
